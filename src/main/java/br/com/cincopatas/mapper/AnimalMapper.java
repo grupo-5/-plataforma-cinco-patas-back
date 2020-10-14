@@ -24,7 +24,7 @@ public class AnimalMapper {
 		return modelMapper.map(animalRequest, Animal.class);
 	}
 
-	public AnimalDTO modelToDTO(Optional<Animal> animal) {
+	public AnimalDTO modelToDTOoptional(Optional<Animal> animal) {
 		return modelMapper.map(animal, AnimalDTO.class);
 	}
 

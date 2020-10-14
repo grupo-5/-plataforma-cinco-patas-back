@@ -1,6 +1,7 @@
 package br.com.cincopatas.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -27,7 +28,6 @@ public class AnimalService {
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
-
 	@Autowired
 	private AnimalMapper animalMapper;
 
@@ -38,6 +38,10 @@ public class AnimalService {
 					  .collect(Collectors.toList());
 	}
 
+	public Optional<Animal> buscar(Long id) {
+		return this.animalRepository.findById(id);
+	}
+	
 	@Transactional
 	public AnimalDTO salvar(AnimalRequest animalRequest) {
 
@@ -54,15 +58,6 @@ public class AnimalService {
 		return animalMapper.modelToDTO(animalRepository.save(animal));
 	}
 
-//	@Transactional
-//	public void atualizar(AnimalRequest animalRequest) {
-//		Animal animal = animalMapper.dtoRequestToModel(animalRequest);
-//
-//		animalRequest.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
-//		animalRequest.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
-//				
-//		animalMapper.modelToDTO(animalRepository.save(animal));
-//	}
 	
 	@Transactional
 	public void remover(Long id) {
@@ -75,4 +70,13 @@ public class AnimalService {
 		};			
 	}
 
+	@Transactional
+	public void atualizar(Animal animal) {
+		//Animal animal = animalMapper.dtoRequestToModel(animalRequest);
+
+		animal.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
+		animal.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
+				
+		animalMapper.modelToDTO(animalRepository.save(animal));
+	}
 }
