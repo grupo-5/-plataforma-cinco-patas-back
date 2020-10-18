@@ -3,7 +3,8 @@ package br.com.cincopatas.enums;
 public enum Sexo {
 	
 	MASCULINO(1, "Masculino"),
-	FEMININO(2, "Feminino");
+	FEMININO(2, "Feminino"),
+	NAODECLARADO(3, "Não declarado");
 	
 	private int cod;
 	private String descricao;
