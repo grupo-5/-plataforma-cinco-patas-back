@@ -63,7 +63,7 @@ public class Animal {
 	private Endereco endereco;
 	@Column
 	private String status;
-//	@OneToOne
-//	private Imagem imagem;
+	@OneToOne
+	private Imagem imagem;
 	
 }

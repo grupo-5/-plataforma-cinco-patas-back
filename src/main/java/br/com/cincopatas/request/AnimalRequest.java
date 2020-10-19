@@ -33,5 +33,5 @@ public class AnimalRequest {
 	private List<Personalidade> personalidades;
 	private List<CuidadosVeterinarios> cuidadosVet;
 	private String contato;
-//	private Imagem imagem; 
+	private Imagem imagem; 
 }

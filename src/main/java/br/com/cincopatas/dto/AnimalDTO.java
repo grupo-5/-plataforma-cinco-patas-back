@@ -25,5 +25,5 @@ public class AnimalDTO {
 	private List<Personalidade> personalidades;
 	private List<CuidadosVeterinarios> cuidadosVet ;
 	private String contato;
-//	private ImagemDTO imagem;
+	private ImagemDTO imagem;
 }
