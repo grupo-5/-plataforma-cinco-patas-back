@@ -1,6 +1,5 @@
 package br.com.cincopatas.mapper;
 
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +21,6 @@ public class PessoaMapper {
 
 	public Pessoa dtoRequestToModel(PessoaRequest PessoaRequest) {
 		return modelMapper.map(PessoaRequest, Pessoa.class);
-	}
-
-	public PessoaDTO modelToDTO(Optional<Pessoa> Pessoa) {
-		return modelMapper.map(Pessoa, PessoaDTO.class);
 	}
 
 }
