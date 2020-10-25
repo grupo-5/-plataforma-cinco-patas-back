@@ -3,8 +3,6 @@ package br.com.cincopatas.controller;
 import java.net.URI;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,13 +18,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.cincopatas.dto.PessoaDTO;
 import br.com.cincopatas.model.Pessoa;
+import br.com.cincopatas.openapi.PessoaOpenAPI;
 import br.com.cincopatas.request.PessoaRequest;
 import br.com.cincopatas.service.PessoaService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/pessoa")
-public class PessoaController {
+public class PessoaController implements PessoaOpenAPI{
 	
 	@Autowired
 	private PessoaService service;
@@ -37,7 +36,7 @@ public class PessoaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> salvar(@RequestBody @Valid PessoaRequest request) {
+	public ResponseEntity<Void> salvar(@RequestBody PessoaRequest request) {
 		PessoaDTO pessoa = service.salvar(request);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
