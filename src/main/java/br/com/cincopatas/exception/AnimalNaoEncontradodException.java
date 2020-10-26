@@ -1,6 +1,7 @@
 package br.com.cincopatas.exception;
 
-public class AnimalNaoEncontradodException extends EntidadeNaoEncontradaException{
+public class AnimalNaoEncontradodException extends EntidadeNaoEncontradaException {
+	private static final long serialVersionUID = 1L;
 
 	public AnimalNaoEncontradodException(String mensagem) {
 		super(mensagem);		
