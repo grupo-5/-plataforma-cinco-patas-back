@@ -9,7 +9,7 @@ public class SolicitacaoRequest {
 	
 	private Long id;
 	private String situacao;
-	private String tipo_solicitacao;
+	private String tipoSolicitacao;
 	private String justificativa;
 	private Animal animal;
 	private Pessoa pessoa;

@@ -11,7 +11,7 @@ public class SolicitacaoDTO {
 
 	private Long id;
 	private String situacao;
-	private String tipo_solicitacao;
+	private String tipoSolicitacao;
 	private String justificativa;
 	private OffsetDateTime data;
 	private Animal animal;
