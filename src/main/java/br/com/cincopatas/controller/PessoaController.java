@@ -36,12 +36,12 @@ public class PessoaController implements PessoaOpenAPI{
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> salvar(@RequestBody PessoaRequest request) {
+	public ResponseEntity<PessoaDTO> salvar(@RequestBody PessoaRequest request) {
 		PessoaDTO pessoa = service.salvar(request);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
 		
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.created(uri).body(pessoa);
 	}
 	
 	@GetMapping("/{id}")

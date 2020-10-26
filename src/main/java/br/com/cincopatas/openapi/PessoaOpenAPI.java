@@ -29,7 +29,7 @@ public interface PessoaOpenAPI {
 	
 	@ApiOperation("Cadastrar uma pessoa")
 	@ApiResponses({ @ApiResponse(code = 201, message = "Pessoa cadastrada", response = PessoaDTO.class) })
-	ResponseEntity<Void> salvar(
+	ResponseEntity<PessoaDTO> salvar(
 			@ApiParam(name = "corpo", value = "Representação de uma nova pessoa", required = true) 
 			@Valid PessoaRequest request);
 	
