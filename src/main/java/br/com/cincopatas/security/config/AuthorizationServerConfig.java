@@ -30,9 +30,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
-	@Value("${digitalhouse.password.client}")
-	private String clientPassw;
-	
+//	@Value("${digitalhouse.password.client}")
+//	private String clientPassw;
+//	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients
