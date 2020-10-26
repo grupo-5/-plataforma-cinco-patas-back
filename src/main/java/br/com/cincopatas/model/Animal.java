@@ -1,7 +1,6 @@
 package br.com.cincopatas.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -63,5 +63,7 @@ public class Animal {
 	private Endereco endereco;
 	@Column
 	private String status;
+//	@OneToOne
+//	private Imagem imagem;
 	
 }

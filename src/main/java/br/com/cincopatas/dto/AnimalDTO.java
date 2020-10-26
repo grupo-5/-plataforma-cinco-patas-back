@@ -1,11 +1,7 @@
 package br.com.cincopatas.dto;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
 
 import br.com.cincopatas.model.CuidadosVeterinarios;
 import br.com.cincopatas.model.Endereco;
@@ -25,6 +21,9 @@ public class AnimalDTO {
 	private String nomeTitular;
 	private LocalDate dataNasc;
 	private Endereco endereco;
+	private String status;
 	private List<Personalidade> personalidades;
 	private List<CuidadosVeterinarios> cuidadosVet ;
+	private String contato;
+//	private ImagemDTO imagem;
 }

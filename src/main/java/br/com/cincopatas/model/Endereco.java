@@ -30,5 +30,4 @@ public class Endereco {
 	@JoinColumn(name = "endereco_cidade_id", nullable = false)
 	private Cidade cidade;
 	
-	
 }
