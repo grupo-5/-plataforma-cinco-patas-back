@@ -18,14 +18,9 @@ public class Imagem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column
 	private String nomeArquivo;
-	@Column
 	private String nomeArquivoCompleto;
-	@Column
 	private String contentType;
-	@Column
 	private Long tamanho;
-	@Column
 	private URL url;
 }

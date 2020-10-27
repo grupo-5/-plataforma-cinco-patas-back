@@ -32,15 +32,10 @@ public class Animal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Long id;
-	@Column
 	private String nome;
-	@Column
 	private String especie;
-	@Column
 	private String sexo;
-	@Column
 	private String porte;
-	@Column
 	private String localizacao;
 	
 	@OneToMany(mappedBy="animal", cascade = CascadeType.ALL)
@@ -55,14 +50,11 @@ public class Animal {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "data_nasc")
 	private LocalDate dataNasc;
-	@Column
 	private String nomeTitular;
-	@Column
 	private String contato;
+	private String status;
 	@Embedded
 	private Endereco endereco;
-	@Column
-	private String status;
 	@OneToOne
 	private Imagem imagem;
 	

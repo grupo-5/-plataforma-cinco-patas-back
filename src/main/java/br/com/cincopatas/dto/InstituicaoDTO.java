@@ -1,8 +1,6 @@
 package br.com.cincopatas.dto;
 
 
-import javax.persistence.Column;
-
 import br.com.cincopatas.model.Endereco;
 import lombok.Data;
 
@@ -22,5 +20,6 @@ public class InstituicaoDTO {
 	private String agencia;
 	private String conta;
 	private Endereco endereco;
+	private ImagemDTO imagem;
 
 }
