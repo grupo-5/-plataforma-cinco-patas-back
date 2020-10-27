@@ -41,12 +41,12 @@ public class Pessoa  implements Serializable {
 	private String cpf;
 	private String rg;
 	private String email;
-	private String telefone;
+	private String contato;
 	
 	@Embedded
 	private Endereco endereco;
 	
-	public Pessoa(Long id, TipoPessoa tipo, String nome, Sexo sexo, String cpf, String rg, String email, String telefone) {
+	public Pessoa(Long id, TipoPessoa tipo, String nome, Sexo sexo, String cpf, String rg, String email, String contato) {
 		
 		this.id = id;
 		this.tipo = tipo.getCod();
@@ -55,7 +55,7 @@ public class Pessoa  implements Serializable {
 		this.cpf = cpf;
 		this.rg = rg;
 		this.email = email;
-		this.telefone = telefone;
+		this.contato = contato;
 		
 	}
 

@@ -1,5 +1,6 @@
 package br.com.cincopatas.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +23,10 @@ public class Instituicao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Long id;
 	private String nome;
-	private String documento;
-	private String tipoDeDocumento;
+	@Column(name="numero_documento")
+	private String numeroDocumento;
+	@Column(name="tipo_documento")
+	private String tipoDocumento;
 	private String email;
 	private String contato;
 	private String razaoSocial;
