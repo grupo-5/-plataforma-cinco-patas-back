@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cincopatas.dto.AnimalDTO;
 import br.com.cincopatas.dto.InstituicaoDTO;
 import br.com.cincopatas.request.InstituicaoRequest;
 import br.com.cincopatas.service.InstituicaoService;
@@ -51,5 +52,9 @@ public class InstituicaoController {
 		instituicaoService.remover(id);
 	}
 	
-
+	@GetMapping(value = "/{id}/cidade")
+	public List<InstituicaoDTO> listarInstituicoesCidade(@PathVariable Long id) {
+		return instituicaoService.buscarInstituicoesCidade(id);
+	}
+	
 }
