@@ -30,6 +30,8 @@ public class Pessoa  implements Serializable {
 	
 	private String nome;
 	
+	private String dataNasc;
+	
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private Integer tipo;
