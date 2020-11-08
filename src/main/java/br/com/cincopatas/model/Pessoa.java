@@ -28,11 +28,11 @@ public class Pessoa  implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	private String nome;
+	
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private Integer tipo;
-	
-	private String nome;
 	
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
