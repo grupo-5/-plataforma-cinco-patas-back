@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.cincopatas.model.Usuario;
+import br.com.cincopatas.repository.UsuarioRepository;
 
 
 @Service
