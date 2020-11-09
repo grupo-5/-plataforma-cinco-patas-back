@@ -11,8 +11,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.cincopatas.dto.PessoaDTO;
+import br.com.cincopatas.email.EnvioEmailService;
+import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.exception.PessoaNaoEncontradadException;
 import br.com.cincopatas.mapper.PessoaMapper;
+import br.com.cincopatas.model.Cidade;
 import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.repository.CidadeRepository;
 import br.com.cincopatas.repository.EstadoRepository;
@@ -33,6 +36,9 @@ public class PessoaService {
 
 	@Autowired
 	private PessoaMapper pessoaMapper;
+	
+	@Autowired
+	private EnvioEmailService envioEmail;
 
 	public List<PessoaDTO> listar() {
 		List<Pessoa> pessoas = pessoaRepository.findAll();
@@ -62,6 +68,26 @@ public class PessoaService {
 			cidadeRepository.save(request.getEndereco().getCidade());
 		}
 		
+//		Mensagem mensagem = Mensagem.builder()
+//				.assunto(request.getNome() + " - Cadastro criado")
+//				.corpo("O cadastro da pessoa de CPF <strong>"
+//						+ request.getCpf()+ "</strong> foi criado!")
+//				.destinatario(request.getEmail())
+//				.build();
+//		
+//		envioEmail.enviar(mensagem);
+		
+//		Cidade cidade = cidadeRepository.findById(request.getEndereco().getCidade().getId()).get();
+		Mensagem mensagem = Mensagem.builder()
+				.assunto(request.getNome() + " - Cadastro realizado")
+				.corpo("cadastro-pessoa.html")
+				.variavel("pessoa", request)
+//				.variavel("cidade", cidade.getNome())
+//				.variavel("estado", cidade.getEstado().getNome())
+				.destinatario(request.getEmail())
+				.build();
+		
+		envioEmail.enviar(mensagem);
 		return pessoaMapper.modelToDTO(pessoaRepository.save(p));
 	}
 	

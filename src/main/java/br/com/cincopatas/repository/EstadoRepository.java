@@ -12,6 +12,9 @@ import br.com.cincopatas.model.Estado;
 @Repository
 public interface EstadoRepository extends JpaRepository<Estado, Long> {
 
-	@Query("from Cidade where estado.id = :id")
+	@Query("from Cidade where estado.id = :id ORDER BY nome ASC")
 	List<Cidade> buscarCidades(Long id);
+
+	@Query("from Estado ORDER BY nome ASC")
+	List<Estado> findAllSorted();
 }

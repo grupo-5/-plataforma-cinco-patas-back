@@ -1,9 +1,9 @@
 package br.com.cincopatas.dto;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
-import br.com.cincopatas.model.Animal;
-import br.com.cincopatas.model.Pessoa;
+import br.com.cincopatas.model.SituacaoSolicitacao;
 import lombok.Data;
 
 @Data
@@ -14,6 +14,8 @@ public class SolicitacaoDTO {
 	private String tipoSolicitacao;
 	private String justificativa;
 	private OffsetDateTime data;
-	private Animal animal;
-	private Pessoa pessoa;
+	private AnimalDTO animal;
+	private PessoaDTO pessoa;
+//	@JsonIgnore	
+	private List<SituacaoSolicitacao> situacoes;
 }

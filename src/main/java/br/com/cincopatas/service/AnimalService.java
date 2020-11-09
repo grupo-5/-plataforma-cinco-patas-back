@@ -11,9 +11,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.cincopatas.dto.AnimalDTO;
+import br.com.cincopatas.dto.PessoaDTO;
 import br.com.cincopatas.exception.AnimalNaoEncontradodException;
 import br.com.cincopatas.mapper.AnimalMapper;
 import br.com.cincopatas.model.Animal;
+import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.repository.AnimalRepository;
 import br.com.cincopatas.repository.CidadeRepository;
 import br.com.cincopatas.repository.EstadoRepository;
@@ -38,8 +40,13 @@ public class AnimalService {
 					  .collect(Collectors.toList());
 	}
 
-	public Optional<Animal> buscar(Long id) {
-		return this.animalRepository.findById(id);
+	public AnimalDTO buscar(Long id) {
+		Optional<Animal> animal = animalRepository.findById(id);
+	
+		if(animal.isPresent()) {
+			return animalMapper.modelToDTO(animal.get());
+		}
+		return null;	
 	}
 	
 	@Transactional
@@ -54,7 +61,6 @@ public class AnimalService {
 
 		animalRequest.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
 		animalRequest.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
-
 		return animalMapper.modelToDTO(animalRepository.save(animal));
 	}
 
@@ -71,12 +77,16 @@ public class AnimalService {
 	}
 
 	@Transactional
-	public void atualizar(Animal animal) {
-		//Animal animal = animalMapper.dtoRequestToModel(animalRequest);
+	public void atualizar(AnimalRequest animalRequest) {
+		Animal animal = animalMapper.dtoRequestToModel(animalRequest);
+		
+		if (animalRequest.getEndereco().getCidade().getEstado().getId() == null) {
+			estadoRepository.save(animalRequest.getEndereco().getCidade().getEstado());
+			cidadeRepository.save(animalRequest.getEndereco().getCidade());
+		}
 
-		animal.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
-		animal.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
-				
+		animalRequest.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
+		animalRequest.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));	
 		animalMapper.modelToDTO(animalRepository.save(animal));
 	}
 }
