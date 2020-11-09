@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import br.com.cincopatas.dto.SolicitacaoDTO;
 import br.com.cincopatas.exception.SolicitacaoNaoEncontradaException;
 import br.com.cincopatas.mapper.SolicitacaoMapper;
+import br.com.cincopatas.model.SituacaoSolicitacao;
 import br.com.cincopatas.model.Solicitacao;
 import br.com.cincopatas.repository.SolicitacaoRepository;
 import br.com.cincopatas.request.SolicitacaoRequest;
@@ -42,6 +43,13 @@ public class SolicitacaoService {
 		Solicitacao solicitacao = solicitacaoMapper.dtoRequestToModel(solicitacaoRequest);
 		solicitacao.setData(OffsetDateTime.now());
 	
+		for (SituacaoSolicitacao t : solicitacaoRequest.getSituacoes()) {
+			t.setSolicitacao(solicitacao);
+			t.setData(OffsetDateTime.now());
+		}
+		
+//		solicitacaoRequest.getSituacoes().stream().forEach(situacao -> 
+//		situacao.setSolicitacao(solicitacao));
 		return solicitacaoMapper.modelToDTO(solicitacaoRepository.save(solicitacao));
 	}
 	

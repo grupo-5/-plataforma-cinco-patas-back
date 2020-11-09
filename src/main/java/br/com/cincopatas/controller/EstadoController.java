@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cincopatas.model.Cidade;
 import br.com.cincopatas.model.Estado;
 import br.com.cincopatas.repository.EstadoRepository;
+import br.com.cincopatas.service.EstadoService;
 
 
 
@@ -21,22 +22,22 @@ import br.com.cincopatas.repository.EstadoRepository;
 @RestController
 @RequestMapping("/estado")
 public class EstadoController {
-
+	
 	@Autowired
-	private EstadoRepository repository;
+	private EstadoService service;
 	
 	@PostMapping
 	public void salvar(@RequestBody Estado estado) {
-		repository.save(estado);
+		service.salvar(estado);
 	}
 	
 	@GetMapping
 	public List<Estado> listar(){
-		return repository.findAll();
+		return service.listar();
 	}
 	
 	@GetMapping("/{id}/cidades")
 	public List<Cidade> listarCidadesPorEstado(@PathVariable Long id){
-		return repository.buscarCidades(id);
+		return service.buscarCidades(id);
 	}
 }

@@ -18,7 +18,7 @@ public class EstadoService {
 	private EstadoRepository estadoRepository;
 
 	public List<Estado> listar() {
-		return estadoRepository.findAll();
+		return estadoRepository.findAllSorted();
 	}
 
 	@Transactional

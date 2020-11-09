@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.dto.AnimalDTO;
+import br.com.cincopatas.dto.PessoaDTO;
 import br.com.cincopatas.mapper.AnimalMapper;
 import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.request.AnimalRequest;
@@ -41,13 +42,12 @@ public class AnimalController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Animal> buscar(@PathVariable Long id) {
-		Optional<Animal> animal = animalService.buscar(id);
+	public ResponseEntity<AnimalDTO> buscar(@PathVariable Long id) {
+		AnimalDTO animal = animalService.buscar(id);
 
-		if (animal.isPresent()) {
-			return ResponseEntity.ok(animal.get());
+		if (animal != null) {
+			return ResponseEntity.ok().body(animal);
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 
@@ -67,14 +67,16 @@ public class AnimalController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> atualizar(@RequestBody Animal animal, @PathVariable Long id) {
-		Animal animalAtual = animalService.buscar(id).orElse(null);
-
+	public ResponseEntity<?> atualizar(@RequestBody AnimalRequest animalRequest, @PathVariable Long id) {
+		AnimalDTO animalAtual = animalService.buscar(id);
+		
 		if (animalAtual != null) {
-			BeanUtils.copyProperties(animal, animalAtual, "id");
-			animalService.atualizar(animalAtual);
+			BeanUtils.copyProperties(animalRequest, animalAtual, "id");
+			animalService.atualizar(animalRequest);
 			return ResponseEntity.ok(animalAtual);
 		}
 		return ResponseEntity.notFound().build();
 	}
+
 }
+
