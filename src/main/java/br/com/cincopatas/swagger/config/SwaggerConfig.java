@@ -80,7 +80,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 	}
 	
 	private SecurityContext securityContext() {
-		var securityReference = SecurityReference.builder()
+		SecurityReference securityReference = SecurityReference.builder()
 				.reference("Cinco Patas")
 				.scopes(scopes().toArray(new AuthorizationScope[0]))
 				.build();
