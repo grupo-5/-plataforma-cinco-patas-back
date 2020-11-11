@@ -11,11 +11,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.cincopatas.dto.AnimalDTO;
-import br.com.cincopatas.dto.PessoaDTO;
 import br.com.cincopatas.exception.AnimalNaoEncontradodException;
 import br.com.cincopatas.mapper.AnimalMapper;
 import br.com.cincopatas.model.Animal;
-import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.repository.AnimalRepository;
 import br.com.cincopatas.repository.CidadeRepository;
 import br.com.cincopatas.repository.EstadoRepository;
@@ -34,7 +32,7 @@ public class AnimalService {
 	private AnimalMapper animalMapper;
 
 	public List<AnimalDTO> listar() {
-		List<Animal> animais = animalRepository.findAll();
+		List<Animal> animais = animalRepository.findAllSorted();
 		return animais.stream()
 					  .map(ani -> animalMapper.modelToDTO(ani))
 					  .collect(Collectors.toList());

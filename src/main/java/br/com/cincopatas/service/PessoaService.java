@@ -15,7 +15,6 @@ import br.com.cincopatas.email.EnvioEmailService;
 import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.exception.PessoaNaoEncontradadException;
 import br.com.cincopatas.mapper.PessoaMapper;
-import br.com.cincopatas.model.Cidade;
 import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.repository.CidadeRepository;
 import br.com.cincopatas.repository.EstadoRepository;
@@ -41,7 +40,7 @@ public class PessoaService {
 	private EnvioEmailService envioEmail;
 
 	public List<PessoaDTO> listar() {
-		List<Pessoa> pessoas = pessoaRepository.findAll();
+		List<Pessoa> pessoas = pessoaRepository.findAllSorted();
 		return pessoas.stream()
 					  .map(p -> pessoaMapper.modelToDTO(p))
 					  .collect(Collectors.toList());
@@ -54,11 +53,9 @@ public class PessoaService {
 		if(pessoa.isPresent()) {
 			return pessoaMapper.modelToDTO(pessoa.get());
 		}
-		
 		return null;	
 	}
 	
-
 	@Transactional
 	public PessoaDTO salvar(PessoaRequest request) {
 		Pessoa p = pessoaMapper.dtoRequestToModel(request);
@@ -68,22 +65,10 @@ public class PessoaService {
 			cidadeRepository.save(request.getEndereco().getCidade());
 		}
 		
-//		Mensagem mensagem = Mensagem.builder()
-//				.assunto(request.getNome() + " - Cadastro criado")
-//				.corpo("O cadastro da pessoa de CPF <strong>"
-//						+ request.getCpf()+ "</strong> foi criado!")
-//				.destinatario(request.getEmail())
-//				.build();
-//		
-//		envioEmail.enviar(mensagem);
-		
-//		Cidade cidade = cidadeRepository.findById(request.getEndereco().getCidade().getId()).get();
 		Mensagem mensagem = Mensagem.builder()
 				.assunto(request.getNome() + " - Cadastro realizado")
-				.corpo("cadastro-pessoa.html")
+				.corpo("cadastro-realizado.html")
 				.variavel("pessoa", request)
-//				.variavel("cidade", cidade.getNome())
-//				.variavel("estado", cidade.getEstado().getNome())
 				.destinatario(request.getEmail())
 				.build();
 		
@@ -92,13 +77,13 @@ public class PessoaService {
 	}
 	
 	@Transactional
-	public void atualizar(Pessoa obj) {
-		pessoaRepository.save(obj);
+	public void atualizar(PessoaRequest pessoaRequest) {
+		Pessoa pessoa = pessoaMapper.dtoRequestToModel(pessoaRequest);
+		pessoaMapper.modelToDTO(pessoaRepository.save(pessoa));
 	}
 	
 	@Transactional
 	public void excluir(Long id) {
-		
 		try {
 			pessoaRepository.deleteById(id);
 			pessoaRepository.flush();

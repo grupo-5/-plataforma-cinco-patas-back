@@ -43,9 +43,9 @@ public interface PessoaOpenAPI {
 	@ApiResponses({ @ApiResponse(code = 200, message = "Pessoa atualizado com sucesso.", response = PessoaDTO.class),
 			@ApiResponse(code = 404, message = "O recurso não foi encontrado", response = Problem.class) })
 	@ApiImplicitParam(name = "id", value = "Id a ser atualizado", required = true, dataType = "int", paramType = "path", example = "1")
-	ResponseEntity<Void> atualizar(
+	ResponseEntity<?> atualizar(
 			@ApiParam(name = "corpo", value = "Representação de uma nova pessoa", required = true)
-			@Valid Pessoa obj, @PathVariable Long id);
+			@Valid PessoaRequest pessoaRequest, @PathVariable Long id);
 	
 	@ApiOperation(value = "Excluir Pessoa pelo ID", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({ @ApiResponse(code = 204, message = "Pessoa excluída com sucesso", response = PessoaDTO.class),
