@@ -20,7 +20,7 @@ public class AnimalMapper {
 		return modelMapper.map(animal, AnimalDTO.class);
 	}
 
-	public Animal dtoRequestToModel(AnimalRequest animalRequest) {
+	public Animal requestToModel(AnimalRequest animalRequest) {
 		return modelMapper.map(animalRequest, Animal.class);
 	}
 

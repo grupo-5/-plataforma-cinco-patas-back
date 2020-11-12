@@ -50,7 +50,7 @@ public class AnimalService {
 	@Transactional
 	public AnimalDTO salvar(AnimalRequest animalRequest) {
 
-		Animal animal = animalMapper.dtoRequestToModel(animalRequest);
+		Animal animal = animalMapper.requestToModel(animalRequest);
 
 		if (animalRequest.getEndereco().getCidade().getEstado().getId() == null) {
 			estadoRepository.save(animalRequest.getEndereco().getCidade().getEstado());
@@ -76,7 +76,7 @@ public class AnimalService {
 
 	@Transactional
 	public void atualizar(AnimalRequest animalRequest) {
-		Animal animal = animalMapper.dtoRequestToModel(animalRequest);
+		Animal animal = animalMapper.requestToModel(animalRequest);
 		
 		if (animalRequest.getEndereco().getCidade().getEstado().getId() == null) {
 			estadoRepository.save(animalRequest.getEndereco().getCidade().getEstado());

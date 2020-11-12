@@ -58,7 +58,7 @@ public class PessoaService {
 	
 	@Transactional
 	public PessoaDTO salvar(PessoaRequest request) {
-		Pessoa p = pessoaMapper.dtoRequestToModel(request);
+		Pessoa p = pessoaMapper.requestToModel(request);
 		
 		if (request.getEndereco().getCidade().getEstado().getId() == null) {
 			estadoRepository.save(request.getEndereco().getCidade().getEstado());
@@ -78,7 +78,7 @@ public class PessoaService {
 	
 	@Transactional
 	public void atualizar(PessoaRequest pessoaRequest) {
-		Pessoa pessoa = pessoaMapper.dtoRequestToModel(pessoaRequest);
+		Pessoa pessoa = pessoaMapper.requestToModel(pessoaRequest);
 		pessoaMapper.modelToDTO(pessoaRepository.save(pessoa));
 	}
 	

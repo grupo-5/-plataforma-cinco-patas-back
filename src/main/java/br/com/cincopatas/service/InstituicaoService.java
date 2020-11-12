@@ -47,7 +47,7 @@ public class InstituicaoService {
 	@Transactional
 	public InstituicaoDTO salvar(InstituicaoRequest instituicaoRequest) {
 
-		Instituicao instituicao = instituicaoMapper.dtoRequestToModel(instituicaoRequest);
+		Instituicao instituicao = instituicaoMapper.requestToModel(instituicaoRequest);
 
 		if (instituicaoRequest.getEndereco().getCidade().getEstado().getId() == null) {
 			estadoRepository.save(instituicaoRequest.getEndereco().getCidade().getEstado());
