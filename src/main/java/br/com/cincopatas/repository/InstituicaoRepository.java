@@ -11,6 +11,9 @@ import br.com.cincopatas.model.Instituicao;
 @Repository
 public interface InstituicaoRepository extends JpaRepository<Instituicao, Long>{
 
-	@Query(value= "select * from instituicao i where i.endereco_cidade_id = :id", nativeQuery = true)
+	@Query("from Instituicao i where i.endereco.cidade.id = :id")
 	List<Instituicao> buscarInstituicoesCidade(Long id);
+
+	@Query("from Instituicao i where i.endereco.cidade.estado.id = :id")
+	List<Instituicao> buscarPorEstado(Long id);
 }

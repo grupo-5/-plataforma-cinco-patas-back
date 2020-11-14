@@ -10,9 +10,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.cincopatas.dto.AnimalDTO;
 import br.com.cincopatas.dto.SituacaoSolicitacaoDTO;
+import br.com.cincopatas.dto.SolicitacaoDTO;
 import br.com.cincopatas.mapper.SituacaoSolicitacaoMapper;
+import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.model.SituacaoSolicitacao;
+import br.com.cincopatas.model.Solicitacao;
 import br.com.cincopatas.repository.SituacaoSolicitacaoRepository;
 import br.com.cincopatas.request.SituacaoSolicitacaoRequest;
 

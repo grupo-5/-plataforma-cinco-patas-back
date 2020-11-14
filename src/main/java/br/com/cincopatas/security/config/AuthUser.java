@@ -13,13 +13,15 @@ public class AuthUser extends User {
 
 private static final long serialVersionUID = 1L;
 	
-	private Long userId;
+	private Long tipo;
+	private Long codigo;
 	private String nomeCompleto;
 	
 	public AuthUser(Usuario usuario, Collection<? extends GrantedAuthority> permissoes) {
 		super(usuario.getEmail(), usuario.getSenha(), permissoes);
 		
-		this.userId = (long)6;
+		this.tipo = usuario.getTipo();
+		this.codigo = usuario.getCodigo();
 		this.nomeCompleto = usuario.getNome();
 	}
 	

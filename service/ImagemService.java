@@ -14,6 +14,7 @@ import br.com.cincopatas.dto.ImagemDTO;
 import br.com.cincopatas.exception.ImagemNaoEncontradaException;
 import br.com.cincopatas.mapper.ImagemMapper;
 import br.com.cincopatas.model.Imagem;
+import br.com.cincopatas.repository.AnimalRepository;
 import br.com.cincopatas.repository.ImagemRepository;
 import br.com.cincopatas.request.ImagemRequest;
 
@@ -24,6 +25,8 @@ public class ImagemService {
 	private ImagemRepository repository;
 	@Autowired
 	private ImagemMapper mapper;
+//	@Autowired
+//	private AnimalRepository animalRepository;
 
 	@Autowired
 	private S3FotoStorageService s3FotoStorageService;

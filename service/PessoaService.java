@@ -16,6 +16,7 @@ import br.com.cincopatas.email.EnvioEmailService;
 import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.exception.PessoaNaoEncontradadException;
 import br.com.cincopatas.mapper.PessoaMapper;
+import br.com.cincopatas.model.Cidade;
 import br.com.cincopatas.model.Grupo;
 import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.model.Usuario;
@@ -81,6 +82,7 @@ public class PessoaService {
 			cidadeRepository.save(request.getEndereco().getCidade());
 		}		
 		
+		Cidade cidade = cidadeRepository.findById(request.getEndereco().getCidade().getId()).get();
 		Mensagem mensagem = Mensagem.builder()
 				.assunto(request.getNome() + " - Cadastro realizado")
 				.corpo("cadastro-pessoa.html")

@@ -1,7 +1,6 @@
 package br.com.cincopatas.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,10 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.dto.AnimalDTO;
-import br.com.cincopatas.dto.PessoaDTO;
-import br.com.cincopatas.mapper.AnimalMapper;
-import br.com.cincopatas.model.Animal;
+import br.com.cincopatas.filtro.AnimalFiltro;
 import br.com.cincopatas.request.AnimalRequest;
+import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 import br.com.cincopatas.service.AnimalService;
 
 @CrossOrigin
@@ -33,12 +31,21 @@ public class AnimalController {
 
 	@Autowired
 	private AnimalService animalService;
+
 	@Autowired
-	private AnimalMapper animalMapper;
+	private PatinhasSecurity patinhasSecurity;
 
 	@GetMapping
-	public List<AnimalDTO> listar() {
-		return animalService.listar();
+	public List<AnimalDTO> listarAnimaisPorFiltro(AnimalFiltro filtro) {	
+		return animalService.listar(filtro);
+	}
+	
+	@GetMapping("/instituicao")
+	public List<AnimalDTO> listarAnimaisPorInstituicao() {
+
+		Long codigo = patinhasSecurity.getCodigo();	
+		
+		return animalService.listarPorInstituicao(codigo);
 	}
 
 	@GetMapping(value = "/{id}")

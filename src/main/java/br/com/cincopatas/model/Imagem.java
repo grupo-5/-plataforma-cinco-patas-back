@@ -2,7 +2,6 @@ package br.com.cincopatas.model;
 
 import java.net.URL;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

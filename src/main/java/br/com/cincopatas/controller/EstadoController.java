@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.model.Cidade;
 import br.com.cincopatas.model.Estado;
-import br.com.cincopatas.repository.EstadoRepository;
 import br.com.cincopatas.service.EstadoService;
 
 

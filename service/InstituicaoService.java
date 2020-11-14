@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import br.com.cincopatas.dto.AnimalDTO;
 import br.com.cincopatas.dto.InstituicaoDTO;
 import br.com.cincopatas.exception.OngNaoEncontradaException;
 import br.com.cincopatas.mapper.InstituicaoMapper;
+import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.repository.CidadeRepository;
 import br.com.cincopatas.repository.EstadoRepository;

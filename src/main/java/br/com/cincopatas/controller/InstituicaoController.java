@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.cincopatas.dto.AnimalDTO;
 import br.com.cincopatas.dto.InstituicaoDTO;
-import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.request.InstituicaoRequest;
 import br.com.cincopatas.service.InstituicaoService;
@@ -35,6 +33,14 @@ public class InstituicaoController {
 	
 	@Autowired
 	private InstituicaoService instituicaoService;
+	
+
+	@GetMapping(value="/estado/{id}")
+	public List<InstituicaoDTO> findByEstado(@PathVariable Long id) {
+
+		return instituicaoService.buscarPorEstado(id);
+		
+	}
 	
 	@GetMapping
 	public List<InstituicaoDTO> listar() {
