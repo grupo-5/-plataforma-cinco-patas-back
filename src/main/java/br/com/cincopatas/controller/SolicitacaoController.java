@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cincopatas.dto.AnimalDTO;
 import br.com.cincopatas.dto.SolicitacaoDTO;
 import br.com.cincopatas.model.Solicitacao;
+import br.com.cincopatas.request.AnimalRequest;
 import br.com.cincopatas.request.SolicitacaoRequest;
 import br.com.cincopatas.service.SolicitacaoService;
 
@@ -38,13 +40,11 @@ public class SolicitacaoController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Solicitacao> buscar(@PathVariable Long id) {
-		Optional<Solicitacao> solicitacao = solicitacaoService.buscar(id);
-
-		if (solicitacao.isPresent()) {
-			return ResponseEntity.ok(solicitacao.get());
+	public ResponseEntity<SolicitacaoDTO> buscar(@PathVariable Long id) {
+		SolicitacaoDTO solicitacao = solicitacaoService.buscar(id);
+		if (solicitacao != null) {
+			return ResponseEntity.ok().body(solicitacao);
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 	
@@ -59,12 +59,12 @@ public class SolicitacaoController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> atualizar(@RequestBody Solicitacao solicitacao, @PathVariable Long id) {
-		Solicitacao solicitacaoAtual = solicitacaoService.buscar(id).orElse(null);
+	public ResponseEntity<?> atualizar(@RequestBody SolicitacaoRequest solicitacaoRequest, @PathVariable Long id) {
+		SolicitacaoDTO solicitacaoAtual = solicitacaoService.buscar(id);
 
 		if (solicitacaoAtual != null) {
-			BeanUtils.copyProperties(solicitacao, solicitacaoAtual, "id");
-			solicitacaoService.atualizar(solicitacaoAtual);
+			BeanUtils.copyProperties(solicitacaoRequest, solicitacaoAtual, "id");
+			solicitacaoService.atualizar(solicitacaoRequest);
 			return ResponseEntity.ok(solicitacaoAtual);
 		}
 		return ResponseEntity.notFound().build();

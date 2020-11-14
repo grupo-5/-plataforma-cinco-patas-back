@@ -19,7 +19,7 @@ public class PessoaMapper {
 		return modelMapper.map(Pessoa, PessoaDTO.class);
 	}
 
-	public Pessoa dtoRequestToModel(PessoaRequest PessoaRequest) {
+	public Pessoa requestToModel(PessoaRequest PessoaRequest) {
 		return modelMapper.map(PessoaRequest, Pessoa.class);
 	}
 

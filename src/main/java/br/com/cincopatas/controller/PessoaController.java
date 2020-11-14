@@ -3,6 +3,7 @@ package br.com.cincopatas.controller;
 import java.net.URI;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,60 +26,55 @@ import br.com.cincopatas.service.PessoaService;
 @CrossOrigin
 @RestController
 @RequestMapping("/pessoa")
-public class PessoaController implements PessoaOpenAPI{
-	
+public class PessoaController implements PessoaOpenAPI {
+
 	@Autowired
 	private PessoaService service;
-	
+
 	@GetMapping
 	public List<PessoaDTO> listar() {
 		return service.listar();
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<PessoaDTO> salvar(@RequestBody PessoaRequest request) {
 		PessoaDTO pessoa = service.salvar(request);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
-		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pessoa.getId()).toUri();
 		return ResponseEntity.created(uri).body(pessoa);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<PessoaDTO> buscar(@PathVariable Long id) {
 		PessoaDTO pessoa = service.buscar(id);
-		
+
 		if (pessoa != null) {
-			
+
 			return ResponseEntity.ok().body(pessoa);
 		}
-
-		return ResponseEntity.notFound().build();	
-	}
-	
-	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizar(@RequestBody Pessoa obj, @PathVariable Long id) {
-		
-		PessoaDTO pessoaAtual = service.buscar(id);
-		
-		if (pessoaAtual != null) {
-
-			obj.setId(id);
-			service.atualizar(obj);
-			
-			return ResponseEntity.noContent().build();
-		}
-
 		return ResponseEntity.notFound().build();
-				
 	}
-	
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> atualizar(@RequestBody PessoaRequest pessoaRequest, @PathVariable Long id) {
+
+		PessoaDTO pessoaAtual = service.buscar(id);
+
+		if (pessoaAtual != null) {
+			BeanUtils.copyProperties(pessoaRequest, pessoaAtual, "id");
+			service.atualizar(pessoaRequest);
+			return ResponseEntity.ok(pessoaAtual);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Pessoa> excluir(@PathVariable Long id) {
-		
-		service.excluir(id);
-		return ResponseEntity.noContent().build();
 
+		try {
+			service.excluir(id);
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
-	
 }

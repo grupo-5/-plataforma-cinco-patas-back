@@ -54,7 +54,7 @@ public class PessoaService {
 	private UsuarioRepository usuarioRepository;
 
 	public List<PessoaDTO> listar() {
-		List<Pessoa> pessoas = pessoaRepository.findAll();
+		List<Pessoa> pessoas = pessoaRepository.findAllSorted();
 		return pessoas.stream()
 					  .map(p -> pessoaMapper.modelToDTO(p))
 					  .collect(Collectors.toList());
@@ -67,14 +67,12 @@ public class PessoaService {
 		if(pessoa.isPresent()) {
 			return pessoaMapper.modelToDTO(pessoa.get());
 		}
-		
 		return null;	
 	}
 	
-
 	@Transactional
 	public PessoaDTO salvar(PessoaRequest request) {
-		Pessoa p = pessoaMapper.dtoRequestToModel(request);
+		Pessoa p = pessoaMapper.requestToModel(request);
 		
 		if (request.getEndereco().getCidade().getEstado().getId() == null) {
 			estadoRepository.save(request.getEndereco().getCidade().getEstado());
@@ -83,7 +81,7 @@ public class PessoaService {
 		
 		Mensagem mensagem = Mensagem.builder()
 				.assunto(request.getNome() + " - Cadastro realizado")
-				.corpo("cadastro-pessoa.html")
+				.corpo("cadastro-realizado.html")
 				.variavel("pessoa", request)
 				.destinatario(request.getEmail())
 				.build();
@@ -109,13 +107,13 @@ public class PessoaService {
 	}
 	
 	@Transactional
-	public void atualizar(Pessoa obj) {
-		pessoaRepository.save(obj);
+	public void atualizar(PessoaRequest pessoaRequest) {
+		Pessoa pessoa = pessoaMapper.requestToModel(pessoaRequest);
+		pessoaMapper.modelToDTO(pessoaRepository.save(pessoa));
 	}
 	
 	@Transactional
 	public void excluir(Long id) {
-		
 		try {
 			pessoaRepository.deleteById(id);
 			pessoaRepository.flush();

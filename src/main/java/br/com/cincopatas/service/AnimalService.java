@@ -31,7 +31,7 @@ public class AnimalService {
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private AnimalMapper animalMapper;
-
+	
 	public List<AnimalDTO> listar(AnimalFiltro filtro) {
 		
 		List<Animal> animais = animalRepository.findAll(filtro.getCidade(), 
@@ -52,18 +52,27 @@ public class AnimalService {
 		return null;	
 	}
 	
+	public List<AnimalDTO> listarPorInstituicao(Long codigo) {
+		List<Animal> animais = animalRepository.buscarPorInstituicao(codigo);		
+		return animais.stream()
+					  .map(ani -> animalMapper.modelToDTO(ani))
+					  .collect(Collectors.toList());
+	}
+	
 	@Transactional
 	public AnimalDTO salvar(AnimalRequest animalRequest) {
 
-		Animal animal = animalMapper.dtoRequestToModel(animalRequest);
+		Animal animal = animalMapper.requestToModel(animalRequest);
 
 		if (animalRequest.getEndereco().getCidade().getEstado().getId() == null) {
 			estadoRepository.save(animalRequest.getEndereco().getCidade().getEstado());
 			cidadeRepository.save(animalRequest.getEndereco().getCidade());
 		}
 
-		animalRequest.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
-		animalRequest.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
+		animalRequest.getPersonalidades().stream().
+			forEach(personalidade -> personalidade.setAnimal(animal));
+		animalRequest.getCuidadosVet().stream()
+			.forEach(cuidados -> cuidados.setAnimal(animal));
 		return animalMapper.modelToDTO(animalRepository.save(animal));
 	}
 
@@ -81,24 +90,19 @@ public class AnimalService {
 
 	@Transactional
 	public void atualizar(AnimalRequest animalRequest) {
-		Animal animal = animalMapper.dtoRequestToModel(animalRequest);
+		Animal animal = animalMapper.requestToModel(animalRequest);
 		
 		if (animalRequest.getEndereco().getCidade().getEstado().getId() == null) {
 			estadoRepository.save(animalRequest.getEndereco().getCidade().getEstado());
 			cidadeRepository.save(animalRequest.getEndereco().getCidade());
 		}
 
-		animalRequest.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
-		animalRequest.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));	
+		animalRequest.getPersonalidades().stream()
+			.forEach(personalidade -> personalidade.setAnimal(animal));
+		
+		animalRequest.getCuidadosVet().stream()
+			.forEach(cuidados -> cuidados.setAnimal(animal));	
 		animalMapper.modelToDTO(animalRepository.save(animal));
 	}
 
-	public List<AnimalDTO> listarPorInstituicao(Long codigo) {
-
-		List<Animal> animais = animalRepository.buscarPorInstituicao(codigo);		
-		
-		return animais.stream()
-					  .map(ani -> animalMapper.modelToDTO(ani))
-					  .collect(Collectors.toList());
-	}
 }

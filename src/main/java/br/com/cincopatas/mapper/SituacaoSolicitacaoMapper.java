@@ -18,7 +18,7 @@ public class SituacaoSolicitacaoMapper {
 		return modelMapper.map(situacaoSolicitacao, SituacaoSolicitacaoDTO.class);
 	}
 
-	public SituacaoSolicitacao dtoRequestToModel(SituacaoSolicitacaoRequest situacaoSolicitacaoRequest) {
+	public SituacaoSolicitacao requestToModel(SituacaoSolicitacaoRequest situacaoSolicitacaoRequest) {
 		return modelMapper.map(situacaoSolicitacaoRequest, SituacaoSolicitacao.class);
 	}
 }

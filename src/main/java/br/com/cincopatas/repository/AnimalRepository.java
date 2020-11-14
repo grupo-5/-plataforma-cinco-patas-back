@@ -11,6 +11,11 @@ import br.com.cincopatas.model.Animal;
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long>{
 
+
+	@Query("from Animal ORDER BY nome ASC")
+	List<Animal> findAllSorted();
+	
+
 	@Query("from Animal a where (:cidade is null or a.endereco.cidade.id = :cidade) and "
 			+ "(:estado is null or a.endereco.cidade.estado.id = :estado) and "
 			+ "(:porte is null or a.porte like :porte) and "

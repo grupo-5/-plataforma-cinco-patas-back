@@ -45,7 +45,7 @@ public class InstituicaoService {
 	@Transactional
 	public InstituicaoDTO salvar(InstituicaoRequest instituicaoRequest) {
 
-		Instituicao instituicao = instituicaoMapper.dtoRequestToModel(instituicaoRequest);
+		Instituicao instituicao = instituicaoMapper.requestToModel(instituicaoRequest);
 
 		if (instituicaoRequest.getEndereco().getCidade().getEstado().getId() == null) {
 			estadoRepository.save(instituicaoRequest.getEndereco().getCidade().getEstado());
@@ -74,8 +74,12 @@ public class InstituicaoService {
 
 	public List<InstituicaoDTO> buscarInstituicoesCidade(Long id) {
 		List<Instituicao> instituicao = instituicaoRepository.buscarInstituicoesCidade(id);
-		return instituicao.stream().map(inst -> instituicaoMapper.modelToDTO(inst)).collect(Collectors.toList());
+		return instituicao.stream()
+				.map(inst -> instituicaoMapper
+				.modelToDTO(inst))
+				.collect(Collectors.toList());
 	}
+	
 
 	public List<InstituicaoDTO> buscarPorEstado(Long id) {
 		List<Instituicao> instituicao = instituicaoRepository.buscarPorEstado(id);

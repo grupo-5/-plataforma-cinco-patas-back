@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.dto.SituacaoSolicitacaoDTO;
+import br.com.cincopatas.dto.SolicitacaoDTO;
 import br.com.cincopatas.request.SituacaoSolicitacaoRequest;
+import br.com.cincopatas.request.SolicitacaoRequest;
 import br.com.cincopatas.service.SituacaoSolicitacaoService;
 
 @CrossOrigin
@@ -56,6 +58,7 @@ public class SituacaoSolicitacaoController {
 			return ResponseEntity.badRequest().body(ex.getMessage());
 		}
 	}
+	
 	
 //	@PutMapping("/{id}")
 //	public ResponseEntity<?> atualizar(@RequestBody Solicitacao solicitacao, @PathVariable Long id) {

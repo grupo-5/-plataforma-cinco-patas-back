@@ -21,7 +21,7 @@ public class InstituicaoMapper {
 		return modelMapper.map(instituicao, InstituicaoDTO.class);
 	}
 
-	public Instituicao dtoRequestToModel(InstituicaoRequest instituicaoRequest) {
+	public Instituicao requestToModel(InstituicaoRequest instituicaoRequest) {
 		return modelMapper.map(instituicaoRequest, Instituicao.class);
 	}
 

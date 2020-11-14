@@ -47,7 +47,7 @@ public class AnimalController {
 		
 		return animalService.listarPorInstituicao(codigo);
 	}
-
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AnimalDTO> buscar(@PathVariable Long id) {
 		AnimalDTO animal = animalService.buscar(id);

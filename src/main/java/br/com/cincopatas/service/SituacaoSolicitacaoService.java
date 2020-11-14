@@ -11,9 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.cincopatas.dto.SituacaoSolicitacaoDTO;
+import br.com.cincopatas.email.EnvioEmailService;
+import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.mapper.SituacaoSolicitacaoMapper;
+import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.model.SituacaoSolicitacao;
+import br.com.cincopatas.model.Solicitacao;
+import br.com.cincopatas.repository.PessoaRepository;
 import br.com.cincopatas.repository.SituacaoSolicitacaoRepository;
+import br.com.cincopatas.repository.SolicitacaoRepository;
 import br.com.cincopatas.request.SituacaoSolicitacaoRequest;
 
 @Service
@@ -21,6 +27,12 @@ public class SituacaoSolicitacaoService {
 
 	@Autowired
 	private SituacaoSolicitacaoRepository situacaoSolicitacaoRepository;
+	@Autowired
+	private SolicitacaoRepository solicitacaoRepository;
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	@Autowired
+	private EnvioEmailService envioEmail;
 	@Autowired
 	private SituacaoSolicitacaoMapper situacaoSolicitacaoMapper;
 	
@@ -51,9 +63,22 @@ public class SituacaoSolicitacaoService {
 	
 	@Transactional
 	public SituacaoSolicitacaoDTO salvar(SituacaoSolicitacaoRequest situacaoSolicitacaoRequest) {
-		SituacaoSolicitacao situacaoSolicitacao = situacaoSolicitacaoMapper.dtoRequestToModel(situacaoSolicitacaoRequest);
+		SituacaoSolicitacao situacaoSolicitacao = situacaoSolicitacaoMapper.requestToModel(situacaoSolicitacaoRequest);
 		situacaoSolicitacao.setData(OffsetDateTime.now());
+
+		Solicitacao solici = solicitacaoRepository.findById(situacaoSolicitacaoRequest.getSolicitacao().getId()).get();
+		Pessoa pessoa = pessoaRepository.findById(solici.getPessoa().getId()).get();
+		Mensagem mensagem = Mensagem.builder()
+				.assunto("Solicitação " + " - Atualizada")
+				.corpo("atualizacao-solicitacao.html")
+				.variavel("pessoa", pessoa)
+//				.variavel("solicitacao", situacaoSolicitacaoRequest.getSituacao())
+				.destinatario(pessoa.getEmail())
+				.build();
+		
+		envioEmail.enviar(mensagem);
 		return situacaoSolicitacaoMapper.modelToDTO(situacaoSolicitacaoRepository.save(situacaoSolicitacao));
 	}
+	
 	
 }
