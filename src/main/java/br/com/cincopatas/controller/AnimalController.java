@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.dto.AnimalDTO;
+import br.com.cincopatas.filtro.AnimalFiltro;
 import br.com.cincopatas.request.AnimalRequest;
+import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 import br.com.cincopatas.service.AnimalService;
 
 @CrossOrigin
@@ -29,12 +31,21 @@ public class AnimalController {
 
 	@Autowired
 	private AnimalService animalService;
+	@Autowired
+	private PatinhasSecurity patinhasSecurity;
 
 	@GetMapping
 	public List<AnimalDTO> listar() {
 		return animalService.listar();
 	}
 
+	@GetMapping(value = "/filtrado")
+	public List<AnimalDTO> listarAnimaisPorFiltro(AnimalFiltro filtro) {
+		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();		
+		return animalService.listarComFiltro(filtro);
+	}
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AnimalDTO> buscar(@PathVariable Long id) {
 		AnimalDTO animal = animalService.buscar(id);

@@ -39,4 +39,9 @@ public class Usuario {
 			inverseJoinColumns = @JoinColumn(name = "grupo_id"))
 	private Set<Grupo> grupos = new HashSet<>();
 	
+	@Column(nullable = false)
+	private Long tipo;
+	
+	@Column(nullable = false)
+	private Long codigo;
 }

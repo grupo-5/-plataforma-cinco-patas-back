@@ -84,4 +84,10 @@ public class InstituicaoController {
 		return instituicaoService.buscarInstituicoesCidade(id);
 	}
 	
+	@GetMapping(value="/estado/{id}")
+	public List<InstituicaoDTO> findByEstado(@PathVariable Long id) {
+		return instituicaoService.buscarPorEstado(id);
+	}
+	
+	
 }

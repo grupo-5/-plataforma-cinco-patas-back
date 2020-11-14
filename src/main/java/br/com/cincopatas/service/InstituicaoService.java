@@ -76,6 +76,16 @@ public class InstituicaoService {
 
 	public List<InstituicaoDTO> buscarInstituicoesCidade(Long id) {
 		List<Instituicao> instituicao = instituicaoRepository.buscarInstituicoesCidade(id);
-		return instituicao.stream().map(inst -> instituicaoMapper.modelToDTO(inst)).collect(Collectors.toList());
+		return instituicao.stream()
+				.map(inst -> instituicaoMapper
+				.modelToDTO(inst))
+				.collect(Collectors.toList());
+	}
+	
+	public List<InstituicaoDTO> buscarPorEstado(Long id) {
+		List<Instituicao> instituicao = instituicaoRepository.buscarPorEstado(id);
+		return instituicao.stream()
+				.map(inst -> instituicaoMapper.modelToDTO(inst))
+				.collect(Collectors.toList());
 	}
 }

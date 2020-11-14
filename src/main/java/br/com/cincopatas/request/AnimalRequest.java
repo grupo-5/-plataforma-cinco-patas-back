@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import br.com.cincopatas.model.CuidadosVeterinarios;
 import br.com.cincopatas.model.Endereco;
 import br.com.cincopatas.model.Imagem;
+import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.model.Personalidade;
 import lombok.Data;
 
@@ -33,5 +34,5 @@ public class AnimalRequest {
 	private List<Personalidade> personalidades;
 	private List<CuidadosVeterinarios> cuidadosVet;
 	private String contato;
-	private Imagem imagem; 
+	private Imagem imagem;
 }

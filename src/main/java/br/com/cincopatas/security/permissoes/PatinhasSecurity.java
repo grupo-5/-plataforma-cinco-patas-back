@@ -12,10 +12,16 @@ public class PatinhasSecurity {
 		return SecurityContextHolder.getContext().getAuthentication();
 	}
 	
-	public Long getUsuarioId() {
+	public Long getTipo() {
 		Jwt jwt = (Jwt) getAuthentication().getPrincipal();
 		
-		return jwt.getClaim("usuario_id");
+		return jwt.getClaim("tipo");
+	}
+	
+	public Long getCodigo() {
+		Jwt jwt = (Jwt) getAuthentication().getPrincipal();
+		
+		return jwt.getClaim("codigo");
 	}
 		
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.cincopatas.dto.AnimalDTO;
 import br.com.cincopatas.exception.AnimalNaoEncontradodException;
+import br.com.cincopatas.filtro.AnimalFiltro;
 import br.com.cincopatas.mapper.AnimalMapper;
 import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.repository.AnimalRepository;
@@ -37,6 +38,17 @@ public class AnimalService {
 					  .map(ani -> animalMapper.modelToDTO(ani))
 					  .collect(Collectors.toList());
 	}
+	
+	public List<AnimalDTO> listarComFiltro(AnimalFiltro filtro) {
+		
+		List<Animal> animais = animalRepository.findAll(filtro.getCidade(), 
+				filtro.getEstado(), filtro.getPorte(),
+				filtro.getEspecie());		
+		
+		return animais.stream()
+					  .map(ani -> animalMapper.modelToDTO(ani))
+					  .collect(Collectors.toList());
+	}
 
 	public AnimalDTO buscar(Long id) {
 		Optional<Animal> animal = animalRepository.findById(id);
@@ -45,6 +57,13 @@ public class AnimalService {
 			return animalMapper.modelToDTO(animal.get());
 		}
 		return null;	
+	}
+	
+	public List<AnimalDTO> listarPorInstituicao(Long codigo) {
+		List<Animal> animais = animalRepository.buscarPorInstituicao(codigo);		
+		return animais.stream()
+					  .map(ani -> animalMapper.modelToDTO(ani))
+					  .collect(Collectors.toList());
 	}
 	
 	@Transactional
@@ -57,8 +76,10 @@ public class AnimalService {
 			cidadeRepository.save(animalRequest.getEndereco().getCidade());
 		}
 
-		animalRequest.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
-		animalRequest.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
+		animalRequest.getPersonalidades().stream().
+			forEach(personalidade -> personalidade.setAnimal(animal));
+		animalRequest.getCuidadosVet().stream()
+			.forEach(cuidados -> cuidados.setAnimal(animal));
 		return animalMapper.modelToDTO(animalRepository.save(animal));
 	}
 
@@ -83,8 +104,11 @@ public class AnimalService {
 			cidadeRepository.save(animalRequest.getEndereco().getCidade());
 		}
 
-		animalRequest.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
-		animalRequest.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));	
+		animalRequest.getPersonalidades().stream()
+			.forEach(personalidade -> personalidade.setAnimal(animal));
+		
+		animalRequest.getCuidadosVet().stream()
+			.forEach(cuidados -> cuidados.setAnimal(animal));	
 		animalMapper.modelToDTO(animalRepository.save(animal));
 	}
 }

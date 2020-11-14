@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.cincopatas.model.CuidadosVeterinarios;
 import br.com.cincopatas.model.Endereco;
+import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.model.Personalidade;
 import lombok.Data;
 
@@ -26,4 +27,5 @@ public class AnimalDTO {
 	private List<CuidadosVeterinarios> cuidadosVet ;
 	private String contato;
 	private ImagemDTO imagem;
+	private Instituicao instituicao;
 }
