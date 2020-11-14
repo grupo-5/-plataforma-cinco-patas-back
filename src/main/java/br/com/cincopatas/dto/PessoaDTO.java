@@ -14,6 +14,7 @@ public class PessoaDTO {
 	private String cpf;
 	private String rg;
 	private String email;
+	private String senha;
 	private String contato;
 	private Endereco endereco;
 	

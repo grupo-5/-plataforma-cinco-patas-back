@@ -72,6 +72,7 @@ public class PessoaService {
 	
 	@Transactional
 	public PessoaDTO salvar(PessoaRequest request) {
+		
 		Pessoa p = pessoaMapper.requestToModel(request);
 		
 		if (request.getEndereco().getCidade().getEstado().getId() == null) {
@@ -93,12 +94,12 @@ public class PessoaService {
 		Grupo grupo = grupoRepository.findById(1L).get();
 		
 		Usuario usuario = Usuario.builder()
-				.nome(pessoa.getNome())
-				.email(pessoa.getEmail())
-				.senha(passwordEncoder.encode("123"))
+				.nome(p.getNome())
+				.email(p.getEmail())
+				.senha(passwordEncoder.encode(p.getSenha()))
 				.grupo(grupo)
 				.tipo(1L)
-				.codigo(pessoa.getId())
+				.codigo(p.getId())
 		.build();
 				
 		usuarioRepository.save(usuario);

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,7 +34,13 @@ public class Pessoa  implements Serializable {
 	private String tipo;
 	private String cpf;
 	private String rg;
+	
+	@Transient
 	private String email;
+	
+	@Transient
+	private String senha;
+	
 	private String contato;
 	
 	@Embedded
