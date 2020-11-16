@@ -12,6 +12,7 @@ public class InstituicaoRequest {
 	private String numeroDocumento;
 	private String tipoDocumento;
 	private String email;
+	private String senha;
 	private String contato;
 	private String razaoSocial;
 	private String inscricaoEstadual;

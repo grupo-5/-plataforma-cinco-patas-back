@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +28,6 @@ public class Instituicao {
 	private String numeroDocumento;
 	@Column(name="tipo_documento")
 	private String tipoDocumento;
-	private String email;
 	private String contato;
 	private String razaoSocial;
 	private String inscricaoEstadual;
@@ -35,6 +35,13 @@ public class Instituicao {
 	private String banco;
 	private String agencia;
 	private String conta;
+	
+	@Transient
+	private String email;
+	
+	@Transient
+	private String senha;
+	
 	@Embedded
 	private Endereco endereco;
 	@OneToOne

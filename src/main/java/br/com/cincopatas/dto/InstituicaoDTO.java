@@ -11,6 +11,7 @@ public class InstituicaoDTO {
 	private String nome;
 	private String numeroDocumento;
 	private String tipoDocumento;
+	private String senha;
 	private String email;
 	private String contato;
 	private String razaoSocial;
