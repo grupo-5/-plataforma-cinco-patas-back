@@ -1,7 +1,6 @@
 package br.com.cincopatas.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.dto.InstituicaoDTO;
-import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.request.InstituicaoRequest;
 import br.com.cincopatas.service.InstituicaoService;
 
@@ -48,11 +46,11 @@ public class InstituicaoController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Instituicao> buscar(@PathVariable Long id) {
-		Optional<Instituicao> instituicao = instituicaoService.buscar(id);
+	public ResponseEntity<InstituicaoDTO> buscar(@PathVariable Long id) {
+		InstituicaoDTO instituicao = instituicaoService.buscar(id);
 
-		if (instituicao.isPresent()) {
-			return ResponseEntity.ok(instituicao.get());
+		if (instituicao != null) {
+			return ResponseEntity.ok().body(instituicao);
 		}
 
 		return ResponseEntity.notFound().build();
@@ -74,12 +72,12 @@ public class InstituicaoController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> atualizar(@RequestBody Instituicao instituicao, @PathVariable Long id) {
-		Instituicao instituicaoAtual = instituicaoService.buscar(id).orElse(null);
+	public ResponseEntity<?> atualizar(@RequestBody InstituicaoRequest instituicaoRequest, @PathVariable Long id) {
+		InstituicaoDTO instituicaoAtual = instituicaoService.buscar(id);
 
 		if (instituicaoAtual != null) {
-			BeanUtils.copyProperties(instituicao, instituicaoAtual, "id");
-			instituicaoService.atualizar(instituicaoAtual);
+			BeanUtils.copyProperties(instituicaoRequest, instituicaoAtual, "id");
+			instituicaoService.atualizar(instituicaoRequest);
 			return ResponseEntity.ok(instituicaoAtual);
 		}
 		return ResponseEntity.notFound().build();

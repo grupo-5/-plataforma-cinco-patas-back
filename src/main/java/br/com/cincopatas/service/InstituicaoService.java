@@ -11,11 +11,13 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.cincopatas.dto.AnimalDTO;
 import br.com.cincopatas.dto.InstituicaoDTO;
 import br.com.cincopatas.email.EnvioEmailService;
 import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.exception.OngNaoEncontradaException;
 import br.com.cincopatas.mapper.InstituicaoMapper;
+import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.model.Grupo;
 import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.model.Usuario;
@@ -24,7 +26,6 @@ import br.com.cincopatas.repository.EstadoRepository;
 import br.com.cincopatas.repository.GrupoRepository;
 import br.com.cincopatas.repository.InstituicaoRepository;
 import br.com.cincopatas.repository.UsuarioRepository;
-import br.com.cincopatas.request.AnimalRequest;
 import br.com.cincopatas.request.InstituicaoRequest;
 
 @Service
@@ -59,7 +60,6 @@ public class InstituicaoService {
 		return instituicao.stream().map(ani -> instituicaoMapper.modelToDTO(ani)).collect(Collectors.toList());
 	}
 	
-
 	public InstituicaoDTO buscar(Long id) {
 		Optional<Instituicao> instituicao = instituicaoRepository.findById(id);
 	
@@ -69,7 +69,7 @@ public class InstituicaoService {
 		return null;	
 	}
 	
-
+	
 	@Transactional
 	public InstituicaoDTO salvar(InstituicaoRequest request) {
 
@@ -118,11 +118,9 @@ public class InstituicaoService {
 		}
 	}
 	
-
-	
 	@Transactional
 	public void atualizar(InstituicaoRequest instituicaoRequest) {
-		Instituicao instituicao = instituicaoMapper.dtoRequestToModel(instituicaoRequest);
+		Instituicao instituicao = instituicaoMapper.requestToModel(instituicaoRequest);
 		
 		if (instituicaoRequest.getEndereco().getCidade().getEstado().getId() == null) {
 			estadoRepository.save(instituicaoRequest.getEndereco().getCidade().getEstado());
@@ -139,7 +137,6 @@ public class InstituicaoService {
 				.modelToDTO(inst))
 				.collect(Collectors.toList());
 	}
-	
 
 	public List<InstituicaoDTO> buscarPorEstado(Long id) {
 		List<Instituicao> instituicao = instituicaoRepository.buscarPorEstado(id);
