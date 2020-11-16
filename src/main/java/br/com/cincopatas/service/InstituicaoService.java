@@ -24,6 +24,7 @@ import br.com.cincopatas.repository.EstadoRepository;
 import br.com.cincopatas.repository.GrupoRepository;
 import br.com.cincopatas.repository.InstituicaoRepository;
 import br.com.cincopatas.repository.UsuarioRepository;
+import br.com.cincopatas.request.AnimalRequest;
 import br.com.cincopatas.request.InstituicaoRequest;
 
 @Service
@@ -58,8 +59,14 @@ public class InstituicaoService {
 		return instituicao.stream().map(ani -> instituicaoMapper.modelToDTO(ani)).collect(Collectors.toList());
 	}
 	
-	public Optional<Instituicao> buscar(Long id) {
-		return this.instituicaoRepository.findById(id);
+
+	public InstituicaoDTO buscar(Long id) {
+		Optional<Instituicao> instituicao = instituicaoRepository.findById(id);
+	
+		if(instituicao.isPresent()) {
+			return instituicaoMapper.modelToDTO(instituicao.get());
+		}
+		return null;	
 	}
 	
 
@@ -111,9 +118,17 @@ public class InstituicaoService {
 		}
 	}
 	
+
+	
 	@Transactional
-	public void atualizar(Instituicao instituicao) {
-				
+	public void atualizar(InstituicaoRequest instituicaoRequest) {
+		Instituicao instituicao = instituicaoMapper.dtoRequestToModel(instituicaoRequest);
+		
+		if (instituicaoRequest.getEndereco().getCidade().getEstado().getId() == null) {
+			estadoRepository.save(instituicaoRequest.getEndereco().getCidade().getEstado());
+			cidadeRepository.save(instituicaoRequest.getEndereco().getCidade());
+		}
+	
 		instituicaoMapper.modelToDTO(instituicaoRepository.save(instituicao));
 	}
 
