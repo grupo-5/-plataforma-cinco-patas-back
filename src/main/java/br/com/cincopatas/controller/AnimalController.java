@@ -41,8 +41,7 @@ public class AnimalController {
 
 	@GetMapping(value = "/filtrado")
 	public List<AnimalDTO> listarAnimaisPorFiltro(AnimalFiltro filtro) {
-		Long tipo = patinhasSecurity.getTipo();
-		Long codigo = patinhasSecurity.getCodigo();		
+		System.out.println("\n filtro--- "+filtro);
 		return animalService.listarComFiltro(filtro);
 	}
 	
@@ -54,6 +53,15 @@ public class AnimalController {
 			return ResponseEntity.ok().body(animal);
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/instituicao")
+	public List<AnimalDTO> listarAnimaisPorInstituicao() {
+//		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();	
+		
+		System.out.println("\n\n codigo --- "+codigo);
+		return animalService.listarPorInstituicao(codigo);
 	}
 
 	@PostMapping

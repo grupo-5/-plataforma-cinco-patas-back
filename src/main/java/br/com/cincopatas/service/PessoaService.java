@@ -93,4 +93,12 @@ public class PessoaService {
 		};			
 	}
 
+	public List<PessoaDTO> listarPorInstituicao(Long codigo) {
+		List<Pessoa> pessoas = pessoaRepository.buscarPorInstituicao(codigo);		
+		return pessoas.stream()
+					  .map(pe -> pessoaMapper.modelToDTO(pe))
+					  .collect(Collectors.toList());
+	}
+
+
 }

@@ -21,6 +21,7 @@ import br.com.cincopatas.dto.PessoaDTO;
 import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.openapi.PessoaOpenAPI;
 import br.com.cincopatas.request.PessoaRequest;
+import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 import br.com.cincopatas.service.PessoaService;
 
 @CrossOrigin
@@ -30,6 +31,8 @@ public class PessoaController implements PessoaOpenAPI {
 
 	@Autowired
 	private PessoaService service;
+	@Autowired
+	private PatinhasSecurity patinhasSecurity;
 
 	@GetMapping
 	public List<PessoaDTO> listar() {
@@ -76,5 +79,12 @@ public class PessoaController implements PessoaOpenAPI {
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
+	}
+	
+	@GetMapping("/instituicao")
+	public List<PessoaDTO> listarAnimaisPorInstituicao() {
+//		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();	
+		return service.listarPorInstituicao(codigo);
 	}
 }
