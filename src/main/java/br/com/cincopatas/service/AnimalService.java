@@ -35,7 +35,9 @@ public class AnimalService {
 	public List<AnimalDTO> listar(AnimalFiltro filtro) {
 		
 		List<Animal> animais = animalRepository.findAll(filtro.getCidade(), 
-				filtro.getEstado(), filtro.getPorte(),
+				filtro.getEstado(), 
+				filtro.getPorte(),
+				filtro.getSexo(),
 				filtro.getEspecie());		
 		
 		return animais.stream()

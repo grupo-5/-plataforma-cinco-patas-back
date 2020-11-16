@@ -35,17 +35,15 @@ public class AnimalController {
 	@Autowired
 	private PatinhasSecurity patinhasSecurity;
 
-	@GetMapping
-	public List<AnimalDTO> listarAnimaisPorFiltro(AnimalFiltro filtro) {	
-		return animalService.listar(filtro);
-	}
+//	@GetMapping
+//	public List<AnimalDTO> listarAnimaisPorFiltro(AnimalFiltro filtro) {	
+//		return animalService.listar(filtro);
+//	}
 	
-	@GetMapping("/instituicao")
-	public List<AnimalDTO> listarAnimaisPorInstituicao() {
-
-		Long codigo = patinhasSecurity.getCodigo();	
-		
-		return animalService.listarPorInstituicao(codigo);
+	@GetMapping(value = "/filtrado")
+	public List<AnimalDTO> listarAnimaisPorFiltro(AnimalFiltro filtro) {
+		System.out.println("\n filtro--- "+filtro);
+		return animalService.listar(filtro);
 	}
 	
 	@GetMapping(value = "/{id}")
@@ -56,6 +54,15 @@ public class AnimalController {
 			return ResponseEntity.ok().body(animal);
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/instituicao")
+	public List<AnimalDTO> listarAnimaisPorInstituicao() {
+//		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();	
+		
+		System.out.println("\n\n codigo --- "+codigo);
+		return animalService.listarPorInstituicao(codigo);
 	}
 
 	@PostMapping

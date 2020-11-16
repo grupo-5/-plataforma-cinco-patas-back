@@ -20,9 +20,9 @@ import lombok.NoArgsConstructor;
 import lombok.Singular;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Usuario {

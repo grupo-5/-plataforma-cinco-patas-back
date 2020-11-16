@@ -25,5 +25,8 @@ public class AnimalFiltro {
     
     @ApiModelProperty(value = "A espécie do animal a ser buscada", required = false, position = 1, dataType = "String", example = "Gato")
     private String especie;
+    
+    @ApiModelProperty(value = "O sexo do animal a ser buscado", required = false, position = 1, dataType = "String", example = "Macho")
+    private String sexo;
 
 }
