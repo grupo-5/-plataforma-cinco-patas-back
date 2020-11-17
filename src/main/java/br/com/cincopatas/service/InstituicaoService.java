@@ -11,13 +11,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.cincopatas.dto.AnimalDTO;
 import br.com.cincopatas.dto.InstituicaoDTO;
 import br.com.cincopatas.email.EnvioEmailService;
 import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.exception.OngNaoEncontradaException;
 import br.com.cincopatas.mapper.InstituicaoMapper;
-import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.model.Grupo;
 import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.model.Usuario;

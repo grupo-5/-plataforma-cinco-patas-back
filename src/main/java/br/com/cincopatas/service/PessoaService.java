@@ -31,27 +31,20 @@ public class PessoaService {
 
 	@Autowired
 	private PessoaRepository pessoaRepository;
-	
 	@Autowired
 	private GrupoRepository grupoRepository;
-	
 	@Autowired
 	private CidadeRepository cidadeRepository;
-	
 	@Autowired
 	private EstadoRepository estadoRepository;
-
-	@Autowired
-	private PessoaMapper pessoaMapper;
-	
 	@Autowired
 	private EnvioEmailService envioEmail;
-	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private PessoaMapper pessoaMapper;
 
 	public List<PessoaDTO> listar() {
 		List<Pessoa> pessoas = pessoaRepository.findAllSorted();

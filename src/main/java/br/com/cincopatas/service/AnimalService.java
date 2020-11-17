@@ -32,19 +32,24 @@ public class AnimalService {
 	@Autowired
 	private AnimalMapper animalMapper;
 	
-	public List<AnimalDTO> listar(AnimalFiltro filtro) {
-		
+	public List<AnimalDTO> listar() {
+		List<Animal> animais = animalRepository.findAll();		
+		return animais.stream()
+				.map(ani -> animalMapper.modelToDTO(ani))
+				.collect(Collectors.toList());
+	}
+
+	public List<AnimalDTO> listarPorInstituicao(AnimalFiltro filtro) {
 		List<Animal> animais = animalRepository.findAll(filtro.getCidade(), 
 				filtro.getEstado(), 
 				filtro.getPorte(),
 				filtro.getSexo(),
 				filtro.getEspecie());		
-		
 		return animais.stream()
 					  .map(ani -> animalMapper.modelToDTO(ani))
 					  .collect(Collectors.toList());
 	}
-
+	
 	public AnimalDTO buscar(Long id) {
 		Optional<Animal> animal = animalRepository.findById(id);
 	

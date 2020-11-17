@@ -35,15 +35,15 @@ public class AnimalController {
 	@Autowired
 	private PatinhasSecurity patinhasSecurity;
 
-//	@GetMapping
-//	public List<AnimalDTO> listarAnimaisPorFiltro(AnimalFiltro filtro) {	
-//		return animalService.listar(filtro);
-//	}
+	@GetMapping
+	public List<AnimalDTO> listarAnimais() {	
+		return animalService.listar();
+	}
 	
 	@GetMapping(value = "/filtrado")
 	public List<AnimalDTO> listarAnimaisPorFiltro(AnimalFiltro filtro) {
 		System.out.println("\n filtro--- "+filtro);
-		return animalService.listar(filtro);
+		return animalService.listarPorInstituicao(filtro);
 	}
 	
 	@GetMapping(value = "/{id}")
