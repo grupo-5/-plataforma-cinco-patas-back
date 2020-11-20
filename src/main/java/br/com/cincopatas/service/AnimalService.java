@@ -43,8 +43,13 @@ public class AnimalService {
 		List<Animal> animais = animalRepository.findAll();
 		return animais.stream().map(ani -> animalMapper.modelToDTO(ani)).collect(Collectors.toList());
 	}
+	
+	public List<AnimalDTO> listarPorInstituicao(Long codigo) {
+		List<Animal> animais = animalRepository.buscarPorInstituicao(codigo);
+		return animais.stream().map(ani -> animalMapper.modelToDTO(ani)).collect(Collectors.toList());
+	}
 
-	public List<AnimalDTO> listarPorInstituicao(AnimalFiltro filtro) {
+	public List<AnimalDTO> listarPorFiltro(AnimalFiltro filtro) {
 		List<Animal> animais = animalRepository.findAll(
 				filtro.getCidade(), 
 				filtro.getEstado(), 
@@ -54,6 +59,7 @@ public class AnimalService {
 		return animais.stream().map(ani -> animalMapper.modelToDTO(ani)).collect(Collectors.toList());
 	}
 
+
 	public AnimalDTO buscar(Long id) {
 		Optional<Animal> animal = animalRepository.findById(id);
 
@@ -61,11 +67,6 @@ public class AnimalService {
 			return animalMapper.modelToDTO(animal.get());
 		}
 		return null;
-	}
-
-	public List<AnimalDTO> listarPorInstituicao(Long codigo) {
-		List<Animal> animais = animalRepository.buscarPorInstituicao(codigo);
-		return animais.stream().map(ani -> animalMapper.modelToDTO(ani)).collect(Collectors.toList());
 	}
 
 	@Transactional

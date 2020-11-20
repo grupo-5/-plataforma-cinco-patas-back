@@ -43,7 +43,7 @@ public class AnimalController {
 	@GetMapping(value = "/filtrado")
 	public List<AnimalDTO> listarAnimaisPorFiltro(AnimalFiltro filtro) {
 		System.out.println("\n filtro--- "+filtro);
-		return animalService.listarPorInstituicao(filtro);
+		return animalService.listarPorFiltro(filtro);
 	}
 	
 	@GetMapping(value = "/{id}")
