@@ -2,8 +2,6 @@ package br.com.cincopatas.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.dto.InstituicaoDTO;
+import br.com.cincopatas.openapi.InstituicaoOpenAPI;
 import br.com.cincopatas.request.InstituicaoRequest;
 import br.com.cincopatas.service.InstituicaoService;
 
@@ -27,7 +26,7 @@ import br.com.cincopatas.service.InstituicaoService;
 @CrossOrigin
 @RestController
 @RequestMapping("/instituicao")
-public class InstituicaoController {
+public class InstituicaoController implements InstituicaoOpenAPI{
 	
 	@Autowired
 	private InstituicaoService instituicaoService;
@@ -57,7 +56,7 @@ public class InstituicaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> salvar(@RequestBody @Valid InstituicaoRequest instituicaoRequest) {
+	public ResponseEntity<?> salvar(@RequestBody InstituicaoRequest instituicaoRequest) {
 		try {
 			InstituicaoDTO instituicao = instituicaoService.salvar(instituicaoRequest);
 			return ResponseEntity.status(HttpStatus.CREATED).body(instituicao);

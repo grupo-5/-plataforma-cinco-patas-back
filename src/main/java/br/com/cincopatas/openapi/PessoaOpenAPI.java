@@ -22,9 +22,9 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags="Pessoa Controller")
 public interface PessoaOpenAPI {
 	
-	@ApiOperation(value = "Buscar todos os Clientes resumido", httpMethod = "GET")
+	@ApiOperation(value = "Buscar todas as pessoas", httpMethod = "GET")
 	@ApiResponses({
-			@ApiResponse(code = 200, message = "Buscar todas as pessoas", response = PessoaDTO.class) })
+			@ApiResponse(code = 200, message = "Pessoas encontradas", response = PessoaDTO.class) })
 	List<PessoaDTO> listar();
 	
 	@ApiOperation("Cadastrar uma pessoa")
@@ -52,5 +52,9 @@ public interface PessoaOpenAPI {
 			@ApiResponse(code = 404, message = "O recurso não foi encontrado", response = Problem.class) })
 	@ApiImplicitParam(name = "id", value = "Id a ser excluído", required = true, dataType = "int", paramType = "path", example = "1")
 	ResponseEntity<Pessoa> excluir(@PathVariable Long id);
+	
+	@ApiOperation(value = "Buscar pessoas por instituição", httpMethod = "GET")
+	@ApiResponses({@ApiResponse(code = 200, message = "Mensagem", response = PessoaDTO.class)})
+	public List<PessoaDTO> listarAnimaisPorInstituicao();
 	
 }

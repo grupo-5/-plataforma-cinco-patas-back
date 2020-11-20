@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import br.com.cincopatas.model.CuidadosVeterinarios;
 import br.com.cincopatas.model.Endereco;
 import br.com.cincopatas.model.Imagem;
-import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.model.Personalidade;
 import lombok.Data;
 

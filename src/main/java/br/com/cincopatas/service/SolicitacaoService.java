@@ -20,7 +20,6 @@ import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.model.SituacaoSolicitacao;
 import br.com.cincopatas.model.Solicitacao;
 import br.com.cincopatas.repository.PessoaRepository;
-import br.com.cincopatas.repository.SituacaoSolicitacaoRepository;
 import br.com.cincopatas.repository.SolicitacaoRepository;
 import br.com.cincopatas.request.SolicitacaoRequest;
 
@@ -31,8 +30,6 @@ public class SolicitacaoService {
 	private SolicitacaoRepository solicitacaoRepository;
 	@Autowired
 	private PessoaRepository pessoaRepository;
-	@Autowired
-	private SituacaoSolicitacaoRepository situacaoSRepository;
 	@Autowired
 	private EnvioEmailService envioEmail;
 	@Autowired

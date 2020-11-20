@@ -2,8 +2,6 @@ package br.com.cincopatas.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.dto.AnimalDTO;
 import br.com.cincopatas.filtro.AnimalFiltro;
+import br.com.cincopatas.openapi.AnimalOpenAPI;
 import br.com.cincopatas.request.AnimalRequest;
 import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 import br.com.cincopatas.service.AnimalService;
@@ -27,7 +26,7 @@ import br.com.cincopatas.service.AnimalService;
 @CrossOrigin
 @RestController
 @RequestMapping("/animal")
-public class AnimalController {
+public class AnimalController implements AnimalOpenAPI{
 
 	@Autowired
 	private AnimalService animalService;
@@ -66,7 +65,7 @@ public class AnimalController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> salvar(@RequestBody @Valid AnimalRequest animalRequest) {
+	public ResponseEntity<?> salvar(@RequestBody AnimalRequest animalRequest) {
 		try {
 			AnimalDTO animal = animalService.salvar(animalRequest);
 			return ResponseEntity.status(HttpStatus.CREATED).body(animal);

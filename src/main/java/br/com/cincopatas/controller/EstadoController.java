@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.model.Cidade;
 import br.com.cincopatas.model.Estado;
+import br.com.cincopatas.openapi.EstadoOpenAPI;
 import br.com.cincopatas.service.EstadoService;
 
 
@@ -20,7 +21,7 @@ import br.com.cincopatas.service.EstadoService;
 @CrossOrigin
 @RestController
 @RequestMapping("/estado")
-public class EstadoController {
+public class EstadoController implements EstadoOpenAPI{
 	
 	@Autowired
 	private EstadoService service;

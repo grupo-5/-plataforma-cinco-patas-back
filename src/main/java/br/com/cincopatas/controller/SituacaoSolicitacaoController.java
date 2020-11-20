@@ -2,8 +2,6 @@ package br.com.cincopatas.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cincopatas.dto.SituacaoSolicitacaoDTO;
-import br.com.cincopatas.dto.SolicitacaoDTO;
+import br.com.cincopatas.openapi.SituacaoSolicitacaoOpenAPI;
 import br.com.cincopatas.request.SituacaoSolicitacaoRequest;
-import br.com.cincopatas.request.SolicitacaoRequest;
 import br.com.cincopatas.service.SituacaoSolicitacaoService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/situacao/solicitacao")
-public class SituacaoSolicitacaoController {
+public class SituacaoSolicitacaoController implements SituacaoSolicitacaoOpenAPI{
 
 	@Autowired
 	private SituacaoSolicitacaoService situacaoSolicitacaoService;
@@ -50,7 +47,7 @@ public class SituacaoSolicitacaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> salvar(@RequestBody @Valid SituacaoSolicitacaoRequest situacaoSolicitacaoRequest) {
+	public ResponseEntity<?> salvar(@RequestBody SituacaoSolicitacaoRequest situacaoSolicitacaoRequest) {
 		try {
 			SituacaoSolicitacaoDTO situcaoSolicitacao = situacaoSolicitacaoService.salvar(situacaoSolicitacaoRequest);
 			return ResponseEntity.status(HttpStatus.CREATED).body(situcaoSolicitacao);
