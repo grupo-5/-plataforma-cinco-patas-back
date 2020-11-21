@@ -24,6 +24,7 @@ import br.com.cincopatas.dto.SolicitacaoDTO;
 import br.com.cincopatas.model.Solicitacao;
 import br.com.cincopatas.request.AnimalRequest;
 import br.com.cincopatas.request.SolicitacaoRequest;
+import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 import br.com.cincopatas.service.SolicitacaoService;
 
 @CrossOrigin
@@ -34,9 +35,21 @@ public class SolicitacaoController {
 	@Autowired
 	private SolicitacaoService solicitacaoService;
 	
+	@Autowired
+	private PatinhasSecurity patinhasSecurity;
+	
 	@GetMapping
 	public List<SolicitacaoDTO> listar() {
 		return solicitacaoService.listar();
+	}
+	
+	@GetMapping("/instituicao")
+	public List<SolicitacaoDTO> listarsolicitacoesPorInstituicao() {
+//		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();	
+		
+		System.out.println("\n\n codigo --- "+codigo);
+		return solicitacaoService.listarPorInstituicao(codigo);
 	}
 	
 	@GetMapping(value = "/{id}")

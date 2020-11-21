@@ -45,6 +45,14 @@ public class SolicitacaoService {
 					  .collect(Collectors.toList());
 	}
 	
+	public List<SolicitacaoDTO> listarPorInstituicao(Long codigo) {
+		List<Solicitacao> solicitacoes = solicitacaoRepository.buscarPorInstituicao(codigo);
+		
+		return solicitacoes.stream()
+				.map(solicitacao -> solicitacaoMapper.modelToDTO(solicitacao))
+				.collect(Collectors.toList());
+	}
+	
 	public SolicitacaoDTO buscar(Long id) {
 		Optional<Solicitacao> solicitacao = solicitacaoRepository.findById(id);
 	

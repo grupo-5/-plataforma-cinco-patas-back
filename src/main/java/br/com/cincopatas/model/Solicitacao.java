@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -46,5 +47,9 @@ public class Solicitacao {
 	
 	@OneToMany(mappedBy = "solicitacao", cascade = CascadeType.ALL)
 	private List<SituacaoSolicitacao> situacoes;
+	
+//	@ManyToOne
+//	@JoinColumn(name = "instituicao_id", nullable=false) 
+//	private Instituicao instituicaoS;
 
 }
