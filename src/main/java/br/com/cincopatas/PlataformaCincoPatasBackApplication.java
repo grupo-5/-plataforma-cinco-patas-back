@@ -199,18 +199,18 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			
 			URL url1 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/ong1.png");
 			URL url2 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/ong2.png");
-			URL url3 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/ong3.png");
-			URL url4 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/ong4.png");
+			URL url3 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/ong3.jpg");
+			URL url4 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/ong4.jpg");
 			URL url5 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/ong5.png");
 			URL url6 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal1.png");
-			URL url7 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal2.png");
-			URL url8 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal3.png");
-			URL url9 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal4.png");
-			URL url10 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal5.png");
-			URL url11 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal6.png");
-			URL url12 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal7.png");
-			URL url13 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal8.png");
-			URL url14 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal9.png");
+			URL url7 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal2.jpg");
+			URL url8 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal3.jpg");
+			URL url9 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal4.jpg");
+			URL url10 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal5.jpg");
+			URL url11 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal6.jpg");
+			URL url12 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal7.jpg");
+			URL url13 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal8.jpg");
+			URL url14 = new URL("https://dh-noturno.s3.us-east-2.amazonaws.com/Fotos/animal9.jpg");
 			
 			Imagem imgOng1 = Imagem.builder()
 					.nomeArquivo("")
