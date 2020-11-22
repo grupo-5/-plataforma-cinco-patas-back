@@ -49,7 +49,7 @@ public class Animal {
 	@Column(name= "info_extras")
 	private String infoExtras;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "data_nasc")
 	private LocalDate dataNasc;
 	private String nomeTitular;

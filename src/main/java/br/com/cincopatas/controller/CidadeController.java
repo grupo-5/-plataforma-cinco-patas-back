@@ -30,4 +30,5 @@ public class CidadeController{
 	public List<Cidade> listar(){
 		return service.listar();
 	}
+	
 }

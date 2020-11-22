@@ -24,5 +24,4 @@ public class CidadeService {
 	public void salvar(Cidade cidade) {
 		cidadeRepository.save(cidade);
 	}
-
 }
