@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cincopatas.dto.SolicitacaoDTO;
 import br.com.cincopatas.openapi.SolicitacaoOpenAPI;
 import br.com.cincopatas.request.SolicitacaoRequest;
+import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 import br.com.cincopatas.service.SolicitacaoService;
 
 @CrossOrigin
@@ -29,9 +30,30 @@ public class SolicitacaoController implements SolicitacaoOpenAPI{
 	@Autowired
 	private SolicitacaoService solicitacaoService;
 	
+	@Autowired
+	private PatinhasSecurity patinhasSecurity;
+	
 	@GetMapping
 	public List<SolicitacaoDTO> listar() {
 		return solicitacaoService.listar();
+	}
+	
+	@GetMapping("/instituicao")
+	public List<SolicitacaoDTO> listarsolicitacoesPorInstituicao() {
+//		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();	
+		
+		System.out.println("\n\n codigo --- "+codigo);
+		return solicitacaoService.listarPorInstituicao(codigo);
+	}
+	
+	@GetMapping("/pessoa")
+	public List<SolicitacaoDTO> listarsolicitacoesPorPessoa() {
+//		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();	
+		
+		System.out.println("\n\n codigo --- "+codigo);
+		return solicitacaoService.listarPorPessoa(codigo);
 	}
 	
 	@GetMapping(value = "/{id}")
