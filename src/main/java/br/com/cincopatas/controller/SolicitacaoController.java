@@ -52,6 +52,15 @@ public class SolicitacaoController {
 		return solicitacaoService.listarPorInstituicao(codigo);
 	}
 	
+	@GetMapping("/pessoa")
+	public List<SolicitacaoDTO> listarsolicitacoesPorPessoa() {
+//		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();	
+		
+		System.out.println("\n\n codigo --- "+codigo);
+		return solicitacaoService.listarPorPessoa(codigo);
+	}
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<SolicitacaoDTO> buscar(@PathVariable Long id) {
 		SolicitacaoDTO solicitacao = solicitacaoService.buscar(id);

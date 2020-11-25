@@ -9,7 +9,10 @@ import br.com.cincopatas.model.Solicitacao;
 
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long>{
 
-	@Query("from Solicitacao s where s.animal.instituicao.id = :codigo ORDER BY nome ASC")
+	@Query("from Solicitacao s where s.animal.instituicao.id = :codigo ORDER BY s.id DESC")
 	List<Solicitacao> buscarPorInstituicao(Long codigo);
+	
+	@Query("from Solicitacao s where s.pessoa.id = :codigo ORDER BY s.id DESC")
+	List<Solicitacao> buscarPorPessoa(Long codigo);
 
 }
