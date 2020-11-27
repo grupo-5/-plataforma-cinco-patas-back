@@ -16,10 +16,11 @@ import br.com.cincopatas.email.EnvioEmailService;
 import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.exception.SolicitacaoNaoEncontradaException;
 import br.com.cincopatas.mapper.SolicitacaoMapper;
-import br.com.cincopatas.model.Instituicao;
+import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.model.Pessoa;
-import br.com.cincopatas.model.SituacaoSolicitacao;
 import br.com.cincopatas.model.Solicitacao;
+import br.com.cincopatas.repository.AnimalRepository;
+import br.com.cincopatas.repository.InstituicaoRepository;
 import br.com.cincopatas.repository.PessoaRepository;
 import br.com.cincopatas.repository.SolicitacaoRepository;
 import br.com.cincopatas.request.SolicitacaoRequest;
@@ -32,6 +33,8 @@ public class SolicitacaoService {
 	private SolicitacaoRepository solicitacaoRepository;
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	@Autowired
+	private InstituicaoRepository instituicaoRepository;
 	@Autowired
 	private EnvioEmailService envioEmail;
 	@Autowired
@@ -84,6 +87,7 @@ public class SolicitacaoService {
 //		solicitacaoRequest.getSituacoes().stream().forEach(situacao -> 
 //		situacao.setSolicitacao(solicitacao));
 //		Pessoa pessoa = pessoaRepository.findById(solicitacaoRequest.getPessoa().getId()).get();
+		
 		Long codigo = patinhasSecurity.getCodigo();
 		Pessoa pessoa = pessoaRepository.findById(codigo).get();
 

@@ -3,6 +3,7 @@ package br.com.cincopatas.model;
 import java.time.OffsetDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class SituacaoSolicitacao {
 	private String situacao;
 	private OffsetDateTime data;
 	@JsonIgnore	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="solicitacao_id", nullable = false) 
 	private Solicitacao solicitacao;
 }

@@ -49,6 +49,7 @@ public class AnimalService {
 		return animais.stream().map(ani -> animalMapper.modelToDTO(ani)).collect(Collectors.toList());
 	}
 
+	// Lista animais por filtro e que estejam com status disponível
 	public List<AnimalDTO> listarPorFiltro(AnimalFiltro filtro) {
 		List<Animal> animais = animalRepository.findAll(
 				filtro.getCidade(), 

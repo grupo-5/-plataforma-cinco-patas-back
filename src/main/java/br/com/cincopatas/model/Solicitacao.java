@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +46,7 @@ public class Solicitacao {
 	@JoinColumn(name = "pessoa_id", nullable = false)
 	private Pessoa pessoa;
 	
-	@OneToMany(mappedBy = "solicitacao", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "solicitacao", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<SituacaoSolicitacao> situacoes;
 	
 //	@ManyToOne

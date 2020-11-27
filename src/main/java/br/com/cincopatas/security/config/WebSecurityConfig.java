@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -68,5 +69,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		
+	    web.ignoring().antMatchers("/animal/filtrado");
+	    web.ignoring().antMatchers("/estado");
+	    web.ignoring().antMatchers("/insti/*");
+	    web.ignoring().antMatchers("/estado/{id}/cidade");
+//	    web.ignoring().antMatchers("/insti/estado/{id}");
+//	    web.ignoring().antMatchers("/insti/{id}/cidades");
+	   
+	}
+	
 
 }
