@@ -14,13 +14,18 @@ import br.com.cincopatas.dto.SituacaoSolicitacaoDTO;
 import br.com.cincopatas.email.EnvioEmailService;
 import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.mapper.SituacaoSolicitacaoMapper;
+import br.com.cincopatas.model.Animal;
+import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.model.SituacaoSolicitacao;
 import br.com.cincopatas.model.Solicitacao;
+import br.com.cincopatas.repository.AnimalRepository;
+import br.com.cincopatas.repository.InstituicaoRepository;
 import br.com.cincopatas.repository.PessoaRepository;
 import br.com.cincopatas.repository.SituacaoSolicitacaoRepository;
 import br.com.cincopatas.repository.SolicitacaoRepository;
 import br.com.cincopatas.request.SituacaoSolicitacaoRequest;
+import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 
 @Service
 public class SituacaoSolicitacaoService {
@@ -32,7 +37,13 @@ public class SituacaoSolicitacaoService {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 	@Autowired
+	private InstituicaoRepository instituicaoRepository;
+	@Autowired
 	private EnvioEmailService envioEmail;
+	@Autowired
+	private AnimalRepository animalRepository;
+	@Autowired
+	private PatinhasSecurity patinhasSecurity;
 	@Autowired
 	private SituacaoSolicitacaoMapper situacaoSolicitacaoMapper;
 	
@@ -68,6 +79,18 @@ public class SituacaoSolicitacaoService {
 
 		Solicitacao solici = solicitacaoRepository.findById(situacaoSolicitacaoRequest.getSolicitacao().getId()).get();
 		Pessoa pessoa = pessoaRepository.findById(solici.getPessoa().getId()).get();
+		
+		
+		Long codigo = patinhasSecurity.getCodigo();
+//		Pessoa pessoa = pessoaRepository.findById(codigo).get();
+//		Animal animal = animalRepository.findById(situacaoSolicitacao.ge).get();
+//		Instituicao instt = instituicaoRepository.findById(codigo).get();
+		
+		if(situacaoSolicitacao.getSituacao().equals("Aceita")) {
+			System.out.println("\n pessoa "+pessoa.getId());
+			System.out.println("\n instituicao "+codigo);
+		}
+		
 		Mensagem mensagem = Mensagem.builder()
 				.assunto("Solicitação " + " - Atualizada")
 				.corpo("atualizacao-solicitacao.html")
