@@ -55,7 +55,7 @@ public class InstituicaoController {
 	}
 	
 	@PostMapping(value = "/instituicao")
-	public ResponseEntity<?> salvar(@RequestBody @Valid InstituicaoRequest instituicaoRequest) {
+	public ResponseEntity<?> salvar(@RequestBody InstituicaoRequest instituicaoRequest) {
 		try {
 			InstituicaoDTO instituicao = instituicaoService.salvar(instituicaoRequest);
 			return ResponseEntity.status(HttpStatus.CREATED).body(instituicao);
