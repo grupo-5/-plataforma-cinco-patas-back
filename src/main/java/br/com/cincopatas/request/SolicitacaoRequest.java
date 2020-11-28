@@ -15,6 +15,6 @@ public class SolicitacaoRequest {
 	private String tipoSolicitacao;
 	private String justificativa;
 	private Animal animal;
-//	private Pessoa pessoa;
+	private Pessoa pessoa;
 //	private List<SituacaoSolicitacao> situacoes;
 }

@@ -113,5 +113,20 @@ public class AnimalService {
 		animalRequest.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
 		animalMapper.modelToDTO(animalRepository.save(animal));
 	}
+	
+	@Transactional
+	public void atualizarA(Animal animal) {
+		
+		
+		if (animal.getEndereco().getCidade().getEstado().getId() == null) {
+			estadoRepository.save(animal.getEndereco().getCidade().getEstado());
+			cidadeRepository.save(animal.getEndereco().getCidade());
+		}
+		
+		animal.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
+		
+		animal.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
+		animalMapper.modelToDTO(animalRepository.save(animal));
+	}
 
 }
