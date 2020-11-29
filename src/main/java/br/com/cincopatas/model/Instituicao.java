@@ -35,8 +35,6 @@ public class Instituicao {
 	private String banco;
 	private String agencia;
 	private String conta;
-	
-	@Transient
 	private String email;
 	
 	@Transient
@@ -46,4 +44,10 @@ public class Instituicao {
 	private Endereco endereco;
 	@OneToOne
 	private Imagem imagem;
+	
+//	@OneToMany(mappedBy = "instituicaoS", cascade = CascadeType.ALL)
+//	private List<Solicitacao> solicitacoes;
+//	
+//	@OneToMany(mappedBy = "instituicao", cascade = CascadeType.ALL)
+//	private List<Animal> animais;
 }

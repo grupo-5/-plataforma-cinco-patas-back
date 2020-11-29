@@ -21,30 +21,28 @@ import br.com.cincopatas.openapi.InstituicaoOpenAPI;
 import br.com.cincopatas.request.InstituicaoRequest;
 import br.com.cincopatas.service.InstituicaoService;
 
-
-
 @CrossOrigin
 @RestController
 @RequestMapping("/instituicao")
 public class InstituicaoController implements InstituicaoOpenAPI{
+
 	
 	@Autowired
 	private InstituicaoService instituicaoService;
 	
 
-	@GetMapping(value="/estado/{id}")
+	@GetMapping(value="/insti/estado/{id}")
 	public List<InstituicaoDTO> findByEstado(@PathVariable Long id) {
 
 		return instituicaoService.buscarPorEstado(id);
 		
 	}
-	
-	@GetMapping
+	@GetMapping(value="/insti")
 	public List<InstituicaoDTO> listar() {
 		return instituicaoService.listar();
 	}
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/instituicao/{id}")
 	public ResponseEntity<InstituicaoDTO> buscar(@PathVariable Long id) {
 		InstituicaoDTO instituicao = instituicaoService.buscar(id);
 
@@ -55,7 +53,7 @@ public class InstituicaoController implements InstituicaoOpenAPI{
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping
+	@PostMapping(value = "/instituicao")
 	public ResponseEntity<?> salvar(@RequestBody InstituicaoRequest instituicaoRequest) {
 		try {
 			InstituicaoDTO instituicao = instituicaoService.salvar(instituicaoRequest);
@@ -65,12 +63,12 @@ public class InstituicaoController implements InstituicaoOpenAPI{
 		}
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping(value = "/instituicao/{id}")
 	public void remover(@PathVariable Long id) {
 		instituicaoService.remover(id);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value = "/instituicao/{id}")
 	public ResponseEntity<?> atualizar(@RequestBody InstituicaoRequest instituicaoRequest, @PathVariable Long id) {
 		InstituicaoDTO instituicaoAtual = instituicaoService.buscar(id);
 
@@ -82,7 +80,7 @@ public class InstituicaoController implements InstituicaoOpenAPI{
 		return ResponseEntity.notFound().build();
 	}	
 
-	@GetMapping(value = "/{id}/cidade")
+	@GetMapping(value = "/insti/{id}/cidade")
 	public List<InstituicaoDTO> listarInstituicoesCidade(@PathVariable Long id) {
 		return instituicaoService.buscarInstituicoesCidade(id);
 	}

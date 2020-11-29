@@ -14,13 +14,18 @@ import br.com.cincopatas.dto.SituacaoSolicitacaoDTO;
 import br.com.cincopatas.email.EnvioEmailService;
 import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.mapper.SituacaoSolicitacaoMapper;
+import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.model.SituacaoSolicitacao;
 import br.com.cincopatas.model.Solicitacao;
+import br.com.cincopatas.repository.AnimalRepository;
+import br.com.cincopatas.repository.InstituicaoRepository;
 import br.com.cincopatas.repository.PessoaRepository;
 import br.com.cincopatas.repository.SituacaoSolicitacaoRepository;
 import br.com.cincopatas.repository.SolicitacaoRepository;
+import br.com.cincopatas.request.AnimalRequest;
 import br.com.cincopatas.request.SituacaoSolicitacaoRequest;
+import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 
 @Service
 public class SituacaoSolicitacaoService {
@@ -32,7 +37,15 @@ public class SituacaoSolicitacaoService {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 	@Autowired
+	private InstituicaoRepository instituicaoRepository;
+	@Autowired
 	private EnvioEmailService envioEmail;
+	@Autowired
+	private AnimalRepository animalRepository;
+	@Autowired
+	private AnimalService animalService;
+	@Autowired
+	private PatinhasSecurity patinhasSecurity;
 	@Autowired
 	private SituacaoSolicitacaoMapper situacaoSolicitacaoMapper;
 	
@@ -68,6 +81,26 @@ public class SituacaoSolicitacaoService {
 
 		Solicitacao solici = solicitacaoRepository.findById(situacaoSolicitacaoRequest.getSolicitacao().getId()).get();
 		Pessoa pessoa = pessoaRepository.findById(solici.getPessoa().getId()).get();
+		
+//		Long codigo = patinhasSecurity.getCodigo();
+//		Instituicao instt = instituicaoRepository.findById(codigo).get();
+		
+		Animal animal =  animalRepository.findById(solici.getAnimal().getId()).get();
+		
+		if(situacaoSolicitacaoRequest.getSituacao().equals("Aceita")) {
+			System.out.println("\n tipo so "+solici.getTipoSolicitacao());
+//			System.out.println("\n instituicao "+codigo);
+			if(solici.getTipoSolicitacao().equals("Adoção")) {
+				animal.setStatus("Adotado");
+				System.out.println(animal);
+				animalService.atualizarA(animal);
+			}else if(solici.getTipoSolicitacao().equals("Lar Temporário")) {
+				animal.setStatus("Tutelado");
+				System.out.println(animal);
+				animalService.atualizarA(animal);
+			}
+		}
+		
 		Mensagem mensagem = Mensagem.builder()
 				.assunto("Solicitação " + " - Atualizada")
 				.corpo("atualizacao-solicitacao.html")

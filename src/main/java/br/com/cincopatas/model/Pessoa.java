@@ -35,9 +35,7 @@ public class Pessoa  implements Serializable {
 	private String sexo;
 	private String tipo;
 	private String cpf;
-	private String rg;
-	
-	@Transient
+	private String rg;	
 	private String email;
 	
 	@Transient

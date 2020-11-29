@@ -16,11 +16,13 @@ public interface AnimalRepository extends JpaRepository<Animal, Long>{
 	List<Animal> findAllSorted();
 	
 
-	@Query("from Animal a where (:cidade is null or a.endereco.cidade.id = :cidade) and "
+	@Query("from Animal a where (:cidade is null or a.endereco.cidade.id = :cidade)"
+			+ "and a.status LIKE 'Disponível'"
+			+ " and "
 			+ "(:estado is null or a.endereco.cidade.estado.id = :estado) and "
 			+ "(:porte is null or a.porte like :porte) and "
 			+ "(:sexo is null or a.sexo like :sexo) and "
-			+ "(:especie is null or a.especie like :especie)")
+			+ "(:especie is null or a.especie like :especie) ORDER BY a.id DESC")
 	List<Animal> findAll(Long cidade, Long estado, String porte, String sexo, String especie);
 
 	@Query("from Animal a where a.instituicao.id = :codigo ORDER BY nome ASC")
