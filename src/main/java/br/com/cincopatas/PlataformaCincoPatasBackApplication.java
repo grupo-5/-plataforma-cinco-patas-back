@@ -110,23 +110,19 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			
 		}
 		
-		if(permissaoRepository.findAll().size() != 3) {
+		if(permissaoRepository.findAll().size() != 2) {
 			Permissao p1 = new Permissao();
 			Permissao p2 = new Permissao();
-			Permissao p3 = new Permissao();
 			
-			p1.setDescricao("Permissão básica");
-			p2.setDescricao("Permissão pessoas");
-			p3.setDescricao("Permissão de instituições");
+			p1.setDescricao("Permissão de pessoas");
+			p2.setDescricao("Permissão de instituições");
 			p1.setId(1L);
 			p2.setId(2L);
-			p3.setId(3L);
-			p1.setNome("DH01");
-			p2.setNome("DH05");
-			p3.setNome("DH03");
+			p1.setNome("CP01");
+			p2.setNome("CP02");
 			
 			
-			permissaoRepository.saveAll(Arrays.asList(p1,p2,p3));
+			permissaoRepository.saveAll(Arrays.asList(p1,p2));
 			
 			Grupo g1 = new Grupo();
 			Grupo g2 = new Grupo();
@@ -139,10 +135,7 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			Set<Permissao> set1 = new HashSet<Permissao>();
 			Set<Permissao> set2 = new HashSet<Permissao>();
 			set1.add(p1);
-			set1.add(p2);
-			set2.add(p1);
 			set2.add(p2);
-			set2.add(p3);
 
 			g1.setPermissoes(set1);
 			g2.setPermissoes(set2);
