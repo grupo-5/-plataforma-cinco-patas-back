@@ -16,21 +16,25 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.cincopatas.model.Animal;
 import br.com.cincopatas.model.Cidade;
+import br.com.cincopatas.model.CuidadosVeterinarios;
 import br.com.cincopatas.model.Endereco;
 import br.com.cincopatas.model.Estado;
 import br.com.cincopatas.model.Grupo;
 import br.com.cincopatas.model.Imagem;
 import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.model.Permissao;
+import br.com.cincopatas.model.Personalidade;
 import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.model.Usuario;
 import br.com.cincopatas.repository.AnimalRepository;
 import br.com.cincopatas.repository.CidadeRepository;
+import br.com.cincopatas.repository.CuidadosVeterinariosRepository;
 import br.com.cincopatas.repository.EstadoRepository;
 import br.com.cincopatas.repository.GrupoRepository;
 import br.com.cincopatas.repository.ImagemRepository;
 import br.com.cincopatas.repository.InstituicaoRepository;
 import br.com.cincopatas.repository.PermissaoRepository;
+import br.com.cincopatas.repository.PersonalidadeRepository;
 import br.com.cincopatas.repository.PessoaRepository;
 import br.com.cincopatas.repository.UsuarioRepository;
 import br.com.cincopatas.service.EstadoService;
@@ -39,6 +43,12 @@ import br.com.cincopatas.service.PessoaService;
 
 @SpringBootApplication
 public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
+	
+	@Autowired
+	private PersonalidadeRepository personalidadeRepository;
+	
+	@Autowired
+	private CuidadosVeterinariosRepository cuidadosVeterinariosRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -454,139 +464,289 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			
 			usuarioRepository.saveAll(Arrays.asList(usuario6, usuario7, usuario8, usuario9, usuario10));
 			
+			Personalidade pers1 = new Personalidade();
+			Personalidade pers2 = new Personalidade();
+			Personalidade pers3 = new Personalidade();
+			Personalidade pers4 = new Personalidade();
+			Personalidade pers5 = new Personalidade();
+
+			
+			pers1.setDescricao("Dócil");
+			pers2.setDescricao("Brincalhão");
+			pers3.setDescricao("Sociável");
+			pers4.setDescricao("Imperativo");
+			pers5.setDescricao("Carente");
+			
+			CuidadosVeterinarios c1 = new CuidadosVeterinarios();
+			CuidadosVeterinarios c2 = new CuidadosVeterinarios();
+			CuidadosVeterinarios c3 = new CuidadosVeterinarios();
+			CuidadosVeterinarios c4 = new CuidadosVeterinarios();
+			
+			c1.setDescricao("Vermifugado");
+			c2.setDescricao("Castrado");
+			c3.setDescricao("Vacinado");
+			c4.setDescricao("Cuidados especiais");
+			
 			Animal a1 = Animal.builder()
+				.id(1L)
 				.nome("Toddy")
 				.especie("Cachorro")
-				.sexo("MASCULINO")
+				.sexo("Macho")
 				.porte("M")
-				.localizacao("ONG")
+				.localizacao("Ong")
 				.dataNasc(LocalDate.parse("2015-02-20"))
 				.nomeTitular("João Roberto")
 				.contato("459887459878")
-				.status("DISPONÍVEL")
+				.status("Disponível")
 				.endereco(e10)
 				.imagem(imgAni2)
 				.instituicao(inst5)
 			.build();
 			
 			Animal a2 = Animal.builder()
+					.id(2L)
 					.nome("Peludo")
 					.especie("Cachorro")
-					.sexo("MACHO")
+					.sexo("Macho")
 					.porte("G")
-					.localizacao("ONG")
+					.localizacao("Ong")
 					.dataNasc(LocalDate.parse("2019-02-27"))
 					.nomeTitular("João Roberto")
 					.contato("459887459878")
-					.status("DISPONÍVEL")
+					.status("Disponível")
 					.endereco(e10)
 					.imagem(imgAni3)
 					.instituicao(inst5)
 				.build();
 			
 			Animal a3 = Animal.builder()
+					.id(3L)
 					.nome("Fofucho")
 					.especie("Gato")
-					.sexo("MACHO")
+					.sexo("Macho")
 					.porte("P")
-					.localizacao("ONG")
+					.localizacao("Ong")
 					.dataNasc(LocalDate.parse("2017-02-20"))
 					.nomeTitular("João Roberto")
 					.contato("459887459878")
-					.status("DISPONÍVEL")
+					.status("Disponível")
 					.endereco(e10)
 					.imagem(imgAni5)
 					.instituicao(inst5)
 				.build();
 			
+			
 			Animal a4 = Animal.builder()
+					.id(4L)
 					.nome("Garfield")
 					.especie("Gato")
-					.sexo("MACHO")
+					.sexo("Macho")
 					.porte("P")
-					.localizacao("ONG")
+					.localizacao("Com o dono")
 					.dataNasc(LocalDate.parse("2020-09-15"))
 					.nomeTitular("João Roberto")
 					.contato("459887459878")
-					.status("DISPONÍVEL")
+					.status("Disponível")
 					.endereco(e10)
 					.imagem(imgAni7)
 					.instituicao(inst5)
 				.build();
+
 			
 			Animal a5 = Animal.builder()
+					.id(5L)
 					.nome("Sensei")
 					.especie("Gato")
-					.sexo("MACHO")
+					.sexo("Macho")
 					.porte("M")
-					.localizacao("ONG")
+					.localizacao("Ong")
 					.dataNasc(LocalDate.parse("2018-03-12"))
 					.nomeTitular("Rubens Doido")
 					.contato("219887859878")
-					.status("DISPONÍVEL")
+					.status("Disponível")
 					.endereco(e9)
 					.imagem(imgAni6)
 					.instituicao(inst4)
 				.build();
+			
+			
 			Animal a6 = Animal.builder()
+					.id(6L)
 					.nome("Princesa")
 					.especie("Gato")
 					.sexo("FÊMEA")
 					.porte("M")
-					.localizacao("ONG")
+					.localizacao("Com o dono")
 					.dataNasc(LocalDate.parse("2019-01-05"))
 					.nomeTitular("Roberta Nunes")
 					.contato("11945899878")
-					.status("DISPONÍVEL")
+					.status("Disponível")
 					.endereco(e8)
 					.imagem(imgAni8)
 					.instituicao(inst3)
 				.build();
 			
+			
 			Animal a7 = Animal.builder()
+					.id(7L)
 					.nome("Pru")
-					.especie("Cachorro")
+					.especie("Gato")
 					.sexo("FÊMEA")
 					.porte("P")
-					.localizacao("ONG")
+					.localizacao("Ong")
 					.dataNasc(LocalDate.parse("2015-11-14"))
 					.nomeTitular("Juliana Prestes")
 					.contato("47789888878")
-					.status("DISPONÍVEL")
+					.status("Disponível")
 					.endereco(e7)
 					.imagem(imgAni9)
 					.instituicao(inst2)
 				.build();
 			
+			
 			Animal a8 = Animal.builder()
+					.id(8L)
 					.nome("Panda")
 					.especie("Cachorro")
 					.sexo("FÊMEA")
 					.porte("P")
-					.localizacao("ONG")
+					.localizacao("Com o dono")
 					.dataNasc(LocalDate.parse("2014-02-20"))
 					.nomeTitular("Ronalda Fenômena")
 					.contato("459887459878")
-					.status("DISPONÍVEL")
+					.status("Disponível")
 					.endereco(e6)
 					.imagem(imgAni4)
 					.instituicao(inst1)
 				.build();
+		
 			
 			Animal a9 = Animal.builder()
+					.id(9L)
 					.nome("Briguento")
 					.especie("Cachorro")
 					.sexo("MACHO")
 					.porte("P")
-					.localizacao("ONG")
+					.localizacao("Com o dono")
 					.dataNasc(LocalDate.parse("2017-02-20"))
 					.nomeTitular("Ronalda Fenômena")
 					.contato("459887459878")
-					.status("DISPONÍVEL")
+					.status("Disponível")
 					.endereco(e6)
 					.imagem(imgAni1)
 					.instituicao(inst1)
 				.build();
+			
+			animalRepository.saveAll(Arrays.asList(a1,a2,a3,a4,a5,a6,a7,a8,a9));
+			
+			pers1.setAnimal(a1);
+			pers1.setId(1L);
+			pers5.setAnimal(a1);
+			pers5.setId(2L);
+			personalidadeRepository.saveAll(Arrays.asList(pers1, pers5));
+			c1.setAnimal(a1);
+			c1.setId(1L);
+			c2.setAnimal(a1);
+			c2.setId(2L);
+			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c1,c2));
+			a1.setPersonalidades(Arrays.asList(pers1, pers5));
+			a1.setCuidadosVet(Arrays.asList(c1,c2));
+			
+			pers1.setAnimal(a2);
+			pers1.setId(3L);
+			pers3.setAnimal(a2);
+			pers3.setId(4L);
+			personalidadeRepository.saveAll(Arrays.asList(pers1, pers3));
+			c1.setAnimal(a1);
+			c1.setId(3L);
+			c2.setAnimal(a1);
+			c2.setId(4L);
+			c3.setAnimal(a1);
+			c3.setId(5L);
+			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c1,c2,c3));
+			a2.setPersonalidades(Arrays.asList(pers1, pers3));
+			a2.setCuidadosVet(Arrays.asList(c1,c2, c3));
+			
+			pers1.setAnimal(a3);
+			pers1.setId(5L);
+			pers5.setAnimal(a3);
+			pers5.setId(6L);
+			personalidadeRepository.saveAll(Arrays.asList(pers1, pers5));
+			c3.setAnimal(a3);
+			c3.setId(6L);
+			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c3));
+			a3.setPersonalidades(Arrays.asList(pers1, pers5));
+			a3.setCuidadosVet(Arrays.asList(c3));
+			
+			pers1.setAnimal(a4);
+			pers1.setId(7L);
+			pers2.setAnimal(a4);
+			pers2.setId(8L);
+			personalidadeRepository.saveAll(Arrays.asList(pers1, pers2));
+			c2.setAnimal(a4);
+			c2.setId(7L);
+			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c2));
+			a4.setPersonalidades(Arrays.asList(pers1, pers2));
+			a4.setCuidadosVet(Arrays.asList(c2));
+			
+			pers1.setAnimal(a5);
+			pers1.setId(9L);
+			pers2.setAnimal(a5);
+			pers2.setId(10L);
+			pers3.setAnimal(a5);
+			pers3.setId(11L);
+			personalidadeRepository.saveAll(Arrays.asList(pers1, pers2, pers3));
+			c1.setAnimal(a5);
+			c1.setId(8L);
+			c2.setAnimal(a5);
+			c2.setId(9L);
+			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c1,c2));
+			a5.setPersonalidades(Arrays.asList(pers1, pers2, pers3));
+			a5.setCuidadosVet(Arrays.asList(c1,c2));
+			
+			pers4.setAnimal(a6);
+			pers4.setId(12L);
+			personalidadeRepository.saveAll(Arrays.asList(pers4));
+			c1.setAnimal(a6);
+			c1.setId(10L);
+			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c1));
+			a6.setPersonalidades(Arrays.asList(pers4));
+			a6.setCuidadosVet(Arrays.asList(c1));
+			
+			pers5.setAnimal(a7);
+			pers5.setId(13L);
+			personalidadeRepository.saveAll(Arrays.asList(pers5));
+			c2.setAnimal(a7);
+			c2.setId(11L);
+			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c2));
+			a7.setPersonalidades(Arrays.asList(pers5));
+			a7.setCuidadosVet(Arrays.asList(c2));
+			
+			pers3.setAnimal(a8);
+			pers3.setId(14L);
+			pers4.setAnimal(a8);
+			pers4.setId(15L);
+			personalidadeRepository.saveAll(Arrays.asList(pers3, pers4));
+			c2.setAnimal(a8);
+			c2.setId(12L);
+			c3.setAnimal(a8);
+			c3.setId(13L);
+			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c2,c3));
+			a8.setPersonalidades(Arrays.asList(pers3, pers4));
+			a8.setCuidadosVet(Arrays.asList(c2, c3));
+			
+			pers1.setAnimal(a9);
+			pers1.setId(16L);
+			pers2.setAnimal(a9);
+			pers2.setId(17L);
+			pers3.setAnimal(a9);
+			pers3.setId(18L);
+			personalidadeRepository.saveAll(Arrays.asList(pers1, pers2, pers3));
+			c4.setAnimal(a9);
+			c4.setId(14L);
+			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c4));
+			a9.setPersonalidades(Arrays.asList(pers1, pers2, pers3));
+			a9.setCuidadosVet(Arrays.asList(c4));
 			
 			animalRepository.saveAll(Arrays.asList(a1,a2,a3,a4,a5,a6,a7,a8,a9));
 		
@@ -643,8 +803,8 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			Pessoa p1 = Pessoa.builder()
 					.nome("João Pessoa")
 					.dataNasc("13-10-1995")
-					.sexo("MASCULINO")
-					.tipo("ADOTANTE")
+					.sexo("Masculino")
+					.tipo("Adotante")
 					.cpf("00202587458")
 					.rg("8759874")
 					.email("joao@gmail.com")
@@ -656,8 +816,8 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			Pessoa p2 = Pessoa.builder()
 					.nome("Tathiane Souza")
 					.dataNasc("15-02-1994")
-					.sexo("FEMININO")
-					.tipo("TUTOR")
+					.sexo("Feminino")
+					.tipo("Tutor")
 					.cpf("88747584789")
 					.rg("8745987")
 					.email("t@gmail.com")
@@ -669,8 +829,8 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			Pessoa p3 = Pessoa.builder()
 					.nome("Rosana Damasceno")
 					.dataNasc("01-05-1992")
-					.sexo("FEMININO")
-					.tipo("ADOTANTE")
+					.sexo("Feminino")
+					.tipo("Adotante")
 					.cpf("22154856984")
 					.rg("8759874")
 					.email("rosana@gmail.com")
@@ -682,8 +842,8 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			Pessoa p4 = Pessoa.builder()
 					.nome("Marcelo Dantas")
 					.dataNasc("15-12-1990")
-					.sexo("MASCULINO")
-					.tipo("ADOTANTE")
+					.sexo("Masculino")
+					.tipo("Adotante")
 					.cpf("25489687585")
 					.rg("5689784")
 					.email("marcelo@gmail.com")
@@ -695,8 +855,8 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			Pessoa p5 = Pessoa.builder()
 					.nome("Fernanda Kirschner")
 					.dataNasc("08-09-1999")
-					.sexo("FEMININO")
-					.tipo("ADOTANTE")
+					.sexo("Feminino")
+					.tipo("Adotante")
 					.cpf("55989745689")
 					.rg("8798569")
 					.email("fernanda@gmail.com")
