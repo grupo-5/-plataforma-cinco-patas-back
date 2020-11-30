@@ -79,34 +79,35 @@ public class SituacaoSolicitacaoService {
 		SituacaoSolicitacao situacaoSolicitacao = situacaoSolicitacaoMapper.requestToModel(situacaoSolicitacaoRequest);
 		situacaoSolicitacao.setData(OffsetDateTime.now());
 
-		Solicitacao solici = solicitacaoRepository.findById(situacaoSolicitacaoRequest.getSolicitacao().getId()).get();
-		Pessoa pessoa = pessoaRepository.findById(solici.getPessoa().getId()).get();
+		Optional <Solicitacao> solici = solicitacaoRepository.findById(situacaoSolicitacao.getSolicitacao().getId());
+		Optional <Pessoa> pessoa = pessoaRepository.findById(solici.get().getPessoa().getId());
+		Animal animal =  animalService.buscarNormal(solici.get().getAnimal().getId());
 		
 //		Long codigo = patinhasSecurity.getCodigo();
 //		Instituicao instt = instituicaoRepository.findById(codigo).get();
 		
-		Animal animal =  animalRepository.findById(solici.getAnimal().getId()).get();
-		
-		if(situacaoSolicitacaoRequest.getSituacao().equals("Aceita")) {
-			System.out.println("\n tipo so "+solici.getTipoSolicitacao());
-//			System.out.println("\n instituicao "+codigo);
-			if(solici.getTipoSolicitacao().equals("Adoção")) {
+		if(situacaoSolicitacaoRequest.getSituacao().equals("Recebida")) {
+			animal.setStatus("Em Adoção");
+			animalService.atualizarA(animal);
+		}else if(situacaoSolicitacaoRequest.getSituacao().equals("Aceita")) {
+			if(solici.get().getTipoSolicitacao().equals("Adoção")) {
 				animal.setStatus("Adotado");
-				System.out.println(animal);
 				animalService.atualizarA(animal);
-			}else if(solici.getTipoSolicitacao().equals("Lar Temporário")) {
+			}else if(solici.get().getTipoSolicitacao().equals("Lar Temporário")) {
 				animal.setStatus("Tutelado");
-				System.out.println(animal);
 				animalService.atualizarA(animal);
 			}
+		}else if(situacaoSolicitacaoRequest.getSituacao().equals("Recusada")) {
+			animal.setStatus("Disponível");
+			animalService.atualizarA(animal);
 		}
 		
 		Mensagem mensagem = Mensagem.builder()
 				.assunto("Solicitação " + " - Atualizada")
 				.corpo("atualizacao-solicitacao.html")
-				.variavel("pessoa", pessoa)
+				.variavel("pessoa", pessoa.get())
 //				.variavel("solicitacao", situacaoSolicitacaoRequest.getSituacao())
-				.destinatario(pessoa.getEmail())
+				.destinatario(pessoa.get().getEmail())
 				.build();
 		
 		envioEmail.enviar(mensagem);

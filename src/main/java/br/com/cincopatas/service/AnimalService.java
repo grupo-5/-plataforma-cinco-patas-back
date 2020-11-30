@@ -69,6 +69,15 @@ public class AnimalService {
 		}
 		return null;
 	}
+	
+	public Animal buscarNormal(Long id) {
+		Optional<Animal> animal = animalRepository.findById(id);
+		
+		if (animal.isPresent()) {
+			return animal.get();
+		}
+		return null;
+	}
 
 	@Transactional
 	public AnimalDTO salvar(AnimalRequest animalRequest) {

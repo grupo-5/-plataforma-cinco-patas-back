@@ -16,5 +16,5 @@ public class PessoaDTO {
 	private String email;
 	private String contato;
 	private Endereco endereco;
-	
+	private ImagemDTO imagem;
 }

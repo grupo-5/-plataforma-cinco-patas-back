@@ -63,6 +63,15 @@ public class PessoaService {
 		return null;	
 	}
 	
+	public PessoaDTO buscarComCodigo(Long codigo) {
+		Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
+	
+		if(pessoa.isPresent()) {
+			return pessoaMapper.modelToDTO(pessoa.get());
+		}
+		return null;	
+	}
+	
 	@Transactional
 	public PessoaDTO salvar(PessoaRequest request) {
 		

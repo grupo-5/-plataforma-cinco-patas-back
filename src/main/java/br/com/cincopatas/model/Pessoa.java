@@ -12,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import br.com.cincopatas.dto.ImagemDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,6 +45,9 @@ public class Pessoa  implements Serializable {
 	
 	@Embedded
 	private Endereco endereco;
+	
+	@OneToOne
+	private Imagem imagem;
 	
 	@ManyToMany
 	@JoinTable(name = "pessoa_instituicao", joinColumns = @JoinColumn(name = "pessoa_id"),

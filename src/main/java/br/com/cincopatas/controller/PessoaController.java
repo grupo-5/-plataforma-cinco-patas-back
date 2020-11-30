@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.cincopatas.dto.InstituicaoDTO;
 import br.com.cincopatas.dto.PessoaDTO;
 import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.openapi.PessoaOpenAPI;
@@ -55,6 +56,13 @@ public class PessoaController implements PessoaOpenAPI {
 			return ResponseEntity.ok().body(pessoa);
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping(value = "/codigo")
+	public PessoaDTO listarComCodigo() {
+		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();	
+		return service.buscarComCodigo(codigo);
 	}
 
 	@PutMapping("/{id}")
