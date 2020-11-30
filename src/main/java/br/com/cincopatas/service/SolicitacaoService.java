@@ -107,13 +107,8 @@ public class SolicitacaoService {
 	public void atualizar(SolicitacaoRequest solicitacaoRequest) {
 		Solicitacao solicitacao = solicitacaoMapper.requestToModel(solicitacaoRequest);
 		Optional<Solicitacao> soli = solicitacaoRepository.findById(solicitacao.getId());
-//		Pessoa pessoa = pessoaRepository.findById(solicitacaoRequest.getPessoa().getId()).get();
-		Long codigo = patinhasSecurity.getCodigo();
-		Pessoa pessoa = pessoaRepository.findById(codigo).get();
+		Pessoa pessoa = pessoaRepository.findById(solicitacaoRequest.getPessoa().getId()).get();
 		solicitacao.setData(soli.get().getData());
-		solicitacao.setPessoa(pessoa);
-		
-		System.out.println("\n\n "+solicitacao.getPessoa().getNome());
 		
 		Mensagem mensagem = Mensagem.builder()
 				.assunto("Solicitação " + " - Atualizada")

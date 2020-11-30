@@ -143,4 +143,14 @@ public class InstituicaoService {
 				.map(inst -> instituicaoMapper.modelToDTO(inst))
 				.collect(Collectors.toList());
 	}
+	
+	public InstituicaoDTO buscarComCodigo(Long codigo) {
+		Optional<Instituicao> instituicao = instituicaoRepository.findById(codigo);
+	
+		if(instituicao.isPresent()) {
+			return instituicaoMapper.modelToDTO(instituicao.get());
+		}
+		return null;	
+	}
+	
 }
