@@ -22,12 +22,11 @@ import br.com.cincopatas.request.InstituicaoRequest;
 import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 import br.com.cincopatas.service.InstituicaoService;
 
-
-
 @CrossOrigin
 @RestController
 //@RequestMapping("/instituicao")
-public class InstituicaoController {
+public class InstituicaoController implements InstituicaoOpenAPI{
+
 	
 	@Autowired
 	private PatinhasSecurity patinhasSecurity;
