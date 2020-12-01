@@ -657,11 +657,11 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 			pers3.setAnimal(a2);
 			pers3.setId(4L);
 			personalidadeRepository.saveAll(Arrays.asList(pers1, pers3));
-			c1.setAnimal(a1);
+			c1.setAnimal(a2);
 			c1.setId(3L);
-			c2.setAnimal(a1);
+			c2.setAnimal(a2);
 			c2.setId(4L);
-			c3.setAnimal(a1);
+			c3.setAnimal(a2);
 			c3.setId(5L);
 			cuidadosVeterinariosRepository.saveAll(Arrays.asList(c1,c2,c3));
 			a2.setPersonalidades(Arrays.asList(pers1, pers3));
