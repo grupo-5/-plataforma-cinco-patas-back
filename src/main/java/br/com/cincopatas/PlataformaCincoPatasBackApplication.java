@@ -1,40 +1,18 @@
 package br.com.cincopatas;
 
-import java.net.URL;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.client.RestTemplate;
 
-import br.com.cincopatas.model.Animal;
-import br.com.cincopatas.model.Cidade;
-import br.com.cincopatas.model.CuidadosVeterinarios;
-import br.com.cincopatas.model.Endereco;
-import br.com.cincopatas.model.Estado;
-import br.com.cincopatas.model.Grupo;
-import br.com.cincopatas.model.Imagem;
-import br.com.cincopatas.model.Instituicao;
-import br.com.cincopatas.model.Permissao;
-import br.com.cincopatas.model.Personalidade;
-import br.com.cincopatas.model.Pessoa;
-import br.com.cincopatas.model.Usuario;
 import br.com.cincopatas.repository.AnimalRepository;
 import br.com.cincopatas.repository.CidadeRepository;
-import br.com.cincopatas.repository.CuidadosVeterinariosRepository;
 import br.com.cincopatas.repository.EstadoRepository;
 import br.com.cincopatas.repository.GrupoRepository;
 import br.com.cincopatas.repository.ImagemRepository;
 import br.com.cincopatas.repository.InstituicaoRepository;
 import br.com.cincopatas.repository.PermissaoRepository;
-import br.com.cincopatas.repository.PersonalidadeRepository;
 import br.com.cincopatas.repository.PessoaRepository;
 import br.com.cincopatas.repository.UsuarioRepository;
 import br.com.cincopatas.service.EstadoService;
@@ -44,11 +22,11 @@ import br.com.cincopatas.service.PessoaService;
 @SpringBootApplication
 public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 	
-	@Autowired
-	private PersonalidadeRepository personalidadeRepository;
-	
-	@Autowired
-	private CuidadosVeterinariosRepository cuidadosVeterinariosRepository;
+//	@Autowired
+//	private PersonalidadeRepository personalidadeRepository;
+//	
+//	@Autowired
+//	private CuidadosVeterinariosRepository cuidadosVeterinariosRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -491,11 +469,8 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 // 				.id(1L)
 // 				.nome("Toddy")
 // 				.especie("Cachorro")
-// <<<<<<< HEAD
 // 				.sexo("Masculino")
-// =======
 // 				.sexo("Macho")
-// >>>>>>> origin/joao-sp9
 // 				.porte("M")
 // 				.localizacao("Ong")
 // 				.dataNasc(LocalDate.parse("2015-02-20"))
@@ -815,6 +790,7 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 // 					.senha("123456")
 // 					.contato("55985478574")
 // 					.endereco(e1)
+//					.imagem(imagemRepository.findById(2L).get())
 // 					.build();
 			
 // 			Pessoa p2 = Pessoa.builder()
@@ -828,6 +804,7 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 // 					.senha("123456")
 // 					.contato("41548796547")
 // 					.endereco(e2)
+//					.imagem(imagemRepository.findById(2L).get())
 // 					.build();
 			
 // 			Pessoa p3 = Pessoa.builder()
@@ -841,6 +818,7 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 // 					.senha("123456")
 // 					.contato("11987458798")
 // 					.endereco(e3)
+//					.imagem(imagemRepository.findById(2L).get())
 // 					.build();
 			
 // 			Pessoa p4 = Pessoa.builder()
@@ -854,6 +832,7 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 // 					.senha("123456")
 // 					.contato("55898745689")
 // 					.endereco(e4)
+//					.imagem(imagemRepository.findById(2L).get())
 // 					.build();
 			
 // 			Pessoa p5 = Pessoa.builder()
@@ -867,6 +846,7 @@ public class PlataformaCincoPatasBackApplication implements CommandLineRunner{
 // 					.senha("123456")
 // 					.contato("45887986958")
 // 					.endereco(e5)
+//					.imagem(imagemRepository.findById(2L).get())		
 // 					.build();
 			
 // 			pessoaRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
