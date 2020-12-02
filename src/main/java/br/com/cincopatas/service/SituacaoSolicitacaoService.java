@@ -15,7 +15,6 @@ import br.com.cincopatas.email.EnvioEmailService;
 import br.com.cincopatas.email.Mensagem;
 import br.com.cincopatas.mapper.SituacaoSolicitacaoMapper;
 import br.com.cincopatas.model.Animal;
-import br.com.cincopatas.model.Instituicao;
 import br.com.cincopatas.model.Pessoa;
 import br.com.cincopatas.model.SituacaoSolicitacao;
 import br.com.cincopatas.model.Solicitacao;
@@ -24,6 +23,7 @@ import br.com.cincopatas.repository.InstituicaoRepository;
 import br.com.cincopatas.repository.PessoaRepository;
 import br.com.cincopatas.repository.SituacaoSolicitacaoRepository;
 import br.com.cincopatas.repository.SolicitacaoRepository;
+import br.com.cincopatas.request.AnimalRequest;
 import br.com.cincopatas.request.SituacaoSolicitacaoRequest;
 import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 
@@ -42,6 +42,8 @@ public class SituacaoSolicitacaoService {
 	private EnvioEmailService envioEmail;
 	@Autowired
 	private AnimalRepository animalRepository;
+	@Autowired
+	private AnimalService animalService;
 	@Autowired
 	private PatinhasSecurity patinhasSecurity;
 	@Autowired
@@ -77,26 +79,35 @@ public class SituacaoSolicitacaoService {
 		SituacaoSolicitacao situacaoSolicitacao = situacaoSolicitacaoMapper.requestToModel(situacaoSolicitacaoRequest);
 		situacaoSolicitacao.setData(OffsetDateTime.now());
 
-		Solicitacao solici = solicitacaoRepository.findById(situacaoSolicitacaoRequest.getSolicitacao().getId()).get();
-		Pessoa pessoa = pessoaRepository.findById(solici.getPessoa().getId()).get();
+		Optional <Solicitacao> solici = solicitacaoRepository.findById(situacaoSolicitacao.getSolicitacao().getId());
+		Optional <Pessoa> pessoa = pessoaRepository.findById(solici.get().getPessoa().getId());
+		Animal animal =  animalService.buscarNormal(solici.get().getAnimal().getId());
 		
-		
-		Long codigo = patinhasSecurity.getCodigo();
-//		Pessoa pessoa = pessoaRepository.findById(codigo).get();
-//		Animal animal = animalRepository.findById(situacaoSolicitacao.ge).get();
+//		Long codigo = patinhasSecurity.getCodigo();
 //		Instituicao instt = instituicaoRepository.findById(codigo).get();
 		
-		if(situacaoSolicitacao.getSituacao().equals("Aceita")) {
-			System.out.println("\n pessoa "+pessoa.getId());
-			System.out.println("\n instituicao "+codigo);
+		if(situacaoSolicitacaoRequest.getSituacao().equals("Recebida")) {
+			animal.setStatus("Em Adoção");
+			animalService.atualizarA(animal);
+		}else if(situacaoSolicitacaoRequest.getSituacao().equals("Aceita")) {
+			if(solici.get().getTipoSolicitacao().equals("Adoção")) {
+				animal.setStatus("Adotado");
+				animalService.atualizarA(animal);
+			}else if(solici.get().getTipoSolicitacao().equals("Lar Temporário")) {
+				animal.setStatus("Tutelado");
+				animalService.atualizarA(animal);
+			}
+		}else if(situacaoSolicitacaoRequest.getSituacao().equals("Recusada")) {
+			animal.setStatus("Disponível");
+			animalService.atualizarA(animal);
 		}
 		
 		Mensagem mensagem = Mensagem.builder()
 				.assunto("Solicitação " + " - Atualizada")
 				.corpo("atualizacao-solicitacao.html")
-				.variavel("pessoa", pessoa)
+				.variavel("pessoa", pessoa.get())
 //				.variavel("solicitacao", situacaoSolicitacaoRequest.getSituacao())
-				.destinatario(pessoa.getEmail())
+				.destinatario(pessoa.get().getEmail())
 				.build();
 		
 		envioEmail.enviar(mensagem);

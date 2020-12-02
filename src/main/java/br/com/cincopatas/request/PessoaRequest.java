@@ -1,6 +1,7 @@
 package br.com.cincopatas.request;
 
 import br.com.cincopatas.model.Endereco;
+import br.com.cincopatas.model.Imagem;
 import lombok.Data;
 
 @Data
@@ -17,5 +18,5 @@ public class PessoaRequest {
 	private String senha;
 	private String contato;
 	private Endereco endereco;
-	
+	private Imagem imagem; 
 }

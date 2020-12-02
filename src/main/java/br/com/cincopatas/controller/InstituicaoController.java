@@ -19,15 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cincopatas.dto.InstituicaoDTO;
 import br.com.cincopatas.openapi.InstituicaoOpenAPI;
 import br.com.cincopatas.request.InstituicaoRequest;
+import br.com.cincopatas.security.permissoes.PatinhasSecurity;
 import br.com.cincopatas.service.InstituicaoService;
-
-
 
 @CrossOrigin
 @RestController
 //@RequestMapping("/instituicao")
-public class InstituicaoController {
+public class InstituicaoController implements InstituicaoOpenAPI{
+
 	
+	@Autowired
+	private PatinhasSecurity patinhasSecurity;
 	@Autowired
 	private InstituicaoService instituicaoService;
 	
@@ -38,9 +40,17 @@ public class InstituicaoController {
 		return instituicaoService.buscarPorEstado(id);
 		
 	}
+	
 	@GetMapping(value="/insti")
 	public List<InstituicaoDTO> listar() {
 		return instituicaoService.listar();
+	}
+	
+	@GetMapping(value = "/instituicao/codigo")
+	public InstituicaoDTO listarComCodigo() {
+		Long tipo = patinhasSecurity.getTipo();
+		Long codigo = patinhasSecurity.getCodigo();	
+		return instituicaoService.buscarComCodigo(codigo);
 	}
 	
 	@GetMapping(value = "/instituicao/{id}")

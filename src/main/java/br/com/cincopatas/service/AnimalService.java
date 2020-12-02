@@ -69,6 +69,15 @@ public class AnimalService {
 		}
 		return null;
 	}
+	
+	public Animal buscarNormal(Long id) {
+		Optional<Animal> animal = animalRepository.findById(id);
+		
+		if (animal.isPresent()) {
+			return animal.get();
+		}
+		return null;
+	}
 
 	@Transactional
 	public AnimalDTO salvar(AnimalRequest animalRequest) {
@@ -111,6 +120,21 @@ public class AnimalService {
 		animalRequest.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
 
 		animalRequest.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
+		animalMapper.modelToDTO(animalRepository.save(animal));
+	}
+	
+	@Transactional
+	public void atualizarA(Animal animal) {
+		
+		
+		if (animal.getEndereco().getCidade().getEstado().getId() == null) {
+			estadoRepository.save(animal.getEndereco().getCidade().getEstado());
+			cidadeRepository.save(animal.getEndereco().getCidade());
+		}
+		
+		animal.getPersonalidades().stream().forEach(personalidade -> personalidade.setAnimal(animal));
+		
+		animal.getCuidadosVet().stream().forEach(cuidados -> cuidados.setAnimal(animal));
 		animalMapper.modelToDTO(animalRepository.save(animal));
 	}
 
